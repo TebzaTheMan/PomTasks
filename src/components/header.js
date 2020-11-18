@@ -29,6 +29,7 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             Pomodoro Timer
           </Typography>
+          
           <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" >
           <HelpIcon/>
           </IconButton>
