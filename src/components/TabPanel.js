@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import TabView from './TabView';
+import Timer from './Timer';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -57,18 +57,18 @@ export default function CenteredTabs() {
         centered
       >
         <Tab label="Pomodoro" />
-        <Tab label="Short" />
+        <Tab label="Short Break" />
         <Tab label="Long Break" />
       </Tabs>
       <TabPanel value={value} index={0}>
-     <TabView time="25:00"/>
+     <Timer initialMinutes={25}/>
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-      <TabView time="5:00"/>
+      <Timer initialMinutes={5}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-      <TabView time="15:00"/>
+      <Timer initialMinutes={15}/>
       </TabPanel>
     </Paper>
     
