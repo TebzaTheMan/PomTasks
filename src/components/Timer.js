@@ -1,97 +1,139 @@
-import React,{useState,useEffect} from 'react';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import bellsound from "./../sounds/bell.wav";
+import clicksound from "./../sounds/click.wav";
 
-export default function Timer(props){
-const {initialMinutes = 0} = props;
-const [ minutes, setMinutes ] = useState(initialMinutes);
-const [seconds ,setSeconds] = useState(0);
-const [isOn,setSwitch] = useState(false);
-const [isTimeUp,setisTimeUp] = useState(false);
-let timerType = initialMinutes === 25 ? "pomodoro" : "shortbreak";
-
-const start=()=>{
-setSwitch(true);
+Timer.propTypes = {
+  initialMinutes: PropTypes.number.isRequired,
 };
-const stop=()=>{
+
+export default function Timer(props) {
+  const { initialMinutes = 0 } = props;
+  const [minutes, setMinutes] = useState(initialMinutes);
+  const [seconds, setSeconds] = useState(0);
+  const [isOn, setSwitch] = useState(false);
+  const [isTimeUp, setisTimeUp] = useState(false);
+  const audioBellsound = new Audio(bellsound);
+  const audioClicksound = new Audio(clicksound);
+
+  const getTimerType = () => {
+    if (initialMinutes === 25) {
+      return "pomodoro";
+    } else if (initialMinutes === 5) {
+      return "shortbreak";
+    } else {
+      return "longbreak";
+    }
+  };
+  let timerType = getTimerType();
+
+  const start = () => {
+    audioClicksound.currentTime = 0;
+    audioClicksound.play();
+    setSwitch(true);
+    notify("Time to work! You got this!");
+  };
+  const stop = () => {
     setSwitch(false);
-}
-const reset=()=>{
+    audioClicksound.currentTime = 0;
+    audioClicksound.play();
+  };
+  const reset = () => {
     setSwitch(true);
     setisTimeUp(false);
     setMinutes(initialMinutes);
     setSeconds(0);
-}
-const countDown= ()=>{
-  let s = seconds < 10 ? `0${seconds}` : seconds;
-    if(seconds >0){
-        setSeconds(seconds-1)
+  };
+  const countDown = () => {
+    if (seconds > 0) {
+      setSeconds(seconds - 1);
+    }
+    if (seconds === 0) {
+      if (minutes === 0) {
+        setisTimeUp(true);
+        setSwitch(false);
+        audioBellsound.play();
+        notify("Time Up");
+      } else {
+        setMinutes(minutes - 1);
+        setSeconds(59);
       }
-      if(seconds === 0){
-        if(minutes === 0){
-          setisTimeUp(true)
-          setSwitch(false)
-          document.title = "Time Up!"
-        }
-        else{
-          setMinutes(minutes-1)
-          setSeconds(59)
-        }
+    }
+    if (minutes === 5 && seconds === 0 && timerType !== "shortbreak") {
+      notify("5 minutes left !");
+    }
+  };
+  const showButton = () => {
+    let button;
+    if (isOn) {
+      button = (
+        <Button size="large" variant="contained" color="primary" onClick={stop}>
+          STOP
+        </Button>
+      );
+    } else if (isTimeUp) {
+      button = (
+        <Button
+          size="large"
+          variant="contained"
+          color="primary"
+          onClick={reset}
+        >
+          START
+        </Button>
+      );
+    } else {
+      button = (
+        <Button
+          size="large"
+          variant="contained"
+          color="primary"
+          onClick={start}
+        >
+          START
+        </Button>
+      );
+    }
+    return button;
+  };
+  const updateTitle = () => {
+    let secs = seconds < 10 ? `0${seconds}` : seconds;
+    if (isTimeUp) {
+      document.title = `${minutes}:${secs} - Time Up!`;
+    } else {
+      if (timerType === "pomodoro") {
+        document.title = `${minutes}:${secs} - time to work!`;
+      } else if (timerType === "shortbreak") {
+        document.title = `${minutes}:${secs} - time for a short break!`;
+      } else {
+        document.title = `${minutes}:${secs} - time for long break!`;
       }
-     
-}
-const showButton = ()=>{
-    let button ;
-    if(isOn){
-        button = <Button size="large" variant="contained" color="primary" onClick={stop}>STOP</Button>
-      }
-      else if(isTimeUp){
-        button = <Button size="large" variant="contained" color="primary" onClick={reset}>START</Button>
-      }
-      else{
-       button = <Button size="large" variant="contained" color="primary" onClick={start}>START</Button>
-      }
-      return button;
-}
-const updateTitle = ()=> {
-  let secs =  seconds < 10 ? `0${seconds}` : seconds;
-  if(!isTimeUp){
-    if(timerType==="pomodoro"){
-      document.title = `${minutes}:${secs} - time to work!`;
-     }else if(timerType==="shortbreak"){
-       document.title =  `${minutes}:${secs} - time for a break!`;
-     }else{
-       document.title = `${minutes}:${secs} - time for long break!`;
-     }
-  }
-  else{
-    document.title = `${minutes}:${secs} - Time Up!`;
-  }
-
-}
-useEffect(()=>{
-  updateTitle();
+    }
+  };
+  const notify = (message) => {
+    Notification.requestPermission();
+    new Notification(message);
+  };
+  useEffect(() => {
     let interval = 0;
-    if(isOn){
-        interval = setInterval(countDown,1000)
-        updateTitle();
+    if (isOn) {
+      interval = setInterval(countDown, 1000);
+      updateTitle();
     }
-    return ()=>{
-        clearInterval(interval)
-       
-    }
-} 
-
-)
-return (
+    return () => {
+      clearInterval(interval);
+      updateTitle();
+    };
+  });
+  return (
     <div>
-         <Typography variant="h1" >
-         {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-          </Typography>
-          <Typography variant="h5" >
-          {isTimeUp ? `Time Up!`: ``}
-          </Typography>
-          {showButton()}
+      <Typography variant="h1">
+        {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+      </Typography>
+      <Typography variant="h5">{isTimeUp ? `Time Up!` : ``}</Typography>
+      {showButton()}
     </div>
-)
+  );
 }
