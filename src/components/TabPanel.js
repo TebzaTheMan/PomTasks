@@ -61,14 +61,14 @@ export default function CenteredTabs() {
         <Tab label="Long Break" />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <Timer initialMinutes={25} />
+        <Timer initialMinutes={25} timerType="pomodoro" />
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        <Timer initialMinutes={5} />
+        <Timer initialMinutes={5} timerType="shortbreak" />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Timer initialMinutes={15} />
+        <Timer initialMinutes={15} timerType="longbreak" />
       </TabPanel>
     </Paper>
   );

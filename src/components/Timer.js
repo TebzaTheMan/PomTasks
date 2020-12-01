@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import bellsound from "./../sounds/bell.wav";
-import clicksound from "./../sounds/click.wav";
+import bellsound from "./../sounds/bell.mp3";
+import clicksound from "./../sounds/click.mp3";
 
 Timer.propTypes = {
   initialMinutes: PropTypes.number.isRequired,
+  timerType: PropTypes.string.isRequired,
 };
 
 export default function Timer(props) {
-  const { initialMinutes = 0 } = props;
+  const { initialMinutes, timerType } = props;
   const [minutes, setMinutes] = useState(initialMinutes);
   const [seconds, setSeconds] = useState(0);
   const [isOn, setSwitch] = useState(false);
@@ -18,22 +19,13 @@ export default function Timer(props) {
   const audioBellsound = new Audio(bellsound);
   const audioClicksound = new Audio(clicksound);
 
-  const getTimerType = () => {
-    if (initialMinutes === 25) {
-      return "pomodoro";
-    } else if (initialMinutes === 5) {
-      return "shortbreak";
-    } else {
-      return "longbreak";
-    }
-  };
-  let timerType = getTimerType();
-
   const start = () => {
     audioClicksound.currentTime = 0;
     audioClicksound.play();
     setSwitch(true);
-    notify("Time to work! You got this!");
+    if (timerType === "pomodoro") {
+      notify("Time to work! You got this!");
+    }
   };
   const stop = () => {
     setSwitch(false);
@@ -45,6 +37,7 @@ export default function Timer(props) {
     setisTimeUp(false);
     setMinutes(initialMinutes);
     setSeconds(0);
+    notify("Let's do this !");
   };
   const countDown = () => {
     if (seconds > 0) {
@@ -55,7 +48,11 @@ export default function Timer(props) {
         setisTimeUp(true);
         setSwitch(false);
         audioBellsound.play();
-        notify("Time Up");
+        if (timerType === "pomodoro") {
+          notify("Time To take a break!");
+        } else {
+          notify("Time to Work!");
+        }
       } else {
         setMinutes(minutes - 1);
         setSeconds(59);
@@ -107,8 +104,10 @@ export default function Timer(props) {
         document.title = `${minutes}:${secs} - time to work!`;
       } else if (timerType === "shortbreak") {
         document.title = `${minutes}:${secs} - time for a short break!`;
-      } else {
+      } else if (timerType === "longbreak") {
         document.title = `${minutes}:${secs} - time for long break!`;
+      } else {
+        document.title = `Pomodoro Timer`;
       }
     }
   };
@@ -117,14 +116,13 @@ export default function Timer(props) {
     new Notification(message);
   };
   useEffect(() => {
+    updateTitle();
     let interval = 0;
     if (isOn) {
       interval = setInterval(countDown, 1000);
-      updateTitle();
     }
     return () => {
       clearInterval(interval);
-      updateTitle();
     };
   });
   return (
