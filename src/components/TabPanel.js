@@ -18,11 +18,7 @@ function TabPanel(props) {
       aria-labelledby={`scrollable-auto-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={10} align="center">
-          {children}
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
@@ -48,7 +44,7 @@ export default function CenteredTabs() {
   };
 
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} align="center">
       <Tabs
         value={value}
         onChange={handleChange}
