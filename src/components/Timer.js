@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import bellsound from "./../sounds/bell.mp3";
 import clicksound from "./../sounds/click.mp3";
+
+import { INCREMENT_TASK } from "./../constants/actions";
+import { DispatchContext } from "./../contexts/Tasks.context";
 
 Timer.propTypes = {
   initialMinutes: PropTypes.number.isRequired,
@@ -19,6 +22,7 @@ export default function Timer(props) {
   const audioBellsound = new Audio(bellsound);
   const audioClicksound = new Audio(clicksound);
 
+  const dispatch = useContext(DispatchContext);
   const start = () => {
     audioClicksound.currentTime = 0;
     audioClicksound.play();
@@ -50,6 +54,7 @@ export default function Timer(props) {
         audioBellsound.play();
         if (timerType === "pomodoro") {
           notify("Time To take a break!");
+          dispatch({ type: INCREMENT_TASK });
         } else {
           notify("Time to Work!");
         }
