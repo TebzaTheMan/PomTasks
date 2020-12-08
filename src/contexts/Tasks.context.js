@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext } from "react";
 import tasksReducer from "./../reducers/Tasks.reducer";
 import useLocalStorageReducer from "../hooks/useLocalStorageReducer";
 const TasksContext = createContext();

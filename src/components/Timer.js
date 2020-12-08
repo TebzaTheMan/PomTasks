@@ -7,6 +7,7 @@ import clicksound from "./../sounds/click.mp3";
 
 import { INCREMENT_TASK } from "./../constants/actions";
 import { DispatchContext } from "./../contexts/Tasks.context";
+import TasksContext from "./../contexts/Tasks.context";
 
 Timer.propTypes = {
   initialMinutes: PropTypes.number.isRequired,
@@ -21,7 +22,7 @@ export default function Timer(props) {
   const [isTimeUp, setisTimeUp] = useState(false);
   const audioBellsound = new Audio(bellsound);
   const audioClicksound = new Audio(clicksound);
-
+  const tasks = useContext(TasksContext);
   const dispatch = useContext(DispatchContext);
   const start = () => {
     audioClicksound.currentTime = 0;
@@ -106,7 +107,13 @@ export default function Timer(props) {
       document.title = `${minutes}:${secs} - Time Up!`;
     } else {
       if (timerType === "pomodoro") {
-        document.title = `${minutes}:${secs} - time to work!`;
+        let focusedOnTask = tasks.find(function (task) {
+          return task.isDoing === true;
+        });
+
+        document.title = `${minutes}:${secs} - ${
+          focusedOnTask === undefined ? "Time to work" : focusedOnTask.task
+        }`;
       } else if (timerType === "shortbreak") {
         document.title = `${minutes}:${secs} - time for a short break!`;
       } else if (timerType === "longbreak") {
