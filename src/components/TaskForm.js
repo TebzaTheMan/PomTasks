@@ -50,7 +50,7 @@ function TaskForm({
   };
   return (
     <Card className={classes.editForm}>
-      <CardHeader title="Edit Task" />
+      <CardHeader title={action === "ADD_TASK" ? "ADD TASK" : "EDIT TASK"} />
       <form
         autoComplete="off"
         onSubmit={handleSubmit(onSubmit)}
