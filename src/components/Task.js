@@ -12,7 +12,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import { TOGGLE_TASK, SELECT_TASK } from "./../constants/actions";
 import { DispatchContext } from "./../contexts/Tasks.context";
 import { Chip } from "@material-ui/core";
-import EditTask from "./EditTask";
+import TaskForm from "./TaskForm";
 const useStyles = makeStyles((theme) => ({
   notSelected: {
     marginBottom: 10,
@@ -74,9 +74,10 @@ function Task({
   return (
     <React.Fragment>
       {isEditting ? (
-        <EditTask
+        <TaskForm
+          action="EDIT_TASK"
           id={id}
-          handleEdit={handleEdit}
+          handleCancel={handleEdit}
           task={task}
           notes={notes}
           pomodorosEstimated={pomodorosEstimated}

@@ -7,15 +7,22 @@ import CardActions from "@material-ui/core/CardActions";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import CardContent from "@material-ui/core/CardContent";
-import { DispatchContext } from "./../contexts/Tasks.context";
+import { DispatchContext } from "../contexts/Tasks.context";
 import { useForm } from "react-hook-form";
-import { EDIT_TASK, REMOVE_TASK } from "./../constants/actions";
+import { EDIT_TASK, REMOVE_TASK, ADD_TASK } from "../constants/actions";
 const useStyles = makeStyles((theme) => ({
   editForm: {
     marginBottom: 15,
   },
 }));
-function EditTask({ id, handleEdit, task, notes, pomodorosEstimated }) {
+function TaskForm({
+  id,
+  handleCancel,
+  task,
+  notes,
+  pomodorosEstimated,
+  action,
+}) {
   const classes = useStyles();
   const dispatch = useContext(DispatchContext);
   const { register, handleSubmit } = useForm();
@@ -25,14 +32,21 @@ function EditTask({ id, handleEdit, task, notes, pomodorosEstimated }) {
   };
   const onSubmit = (data, e) => {
     e.preventDefault();
-    dispatch({
-      type: EDIT_TASK,
-      id,
-      task: data.task,
-      notes: data.notes,
-      pomodorosEstimated: data.pomodorosEstimated,
-    });
-    handleEdit();
+    action === "ADD_TASK"
+      ? dispatch({
+          type: ADD_TASK,
+          task: data.task,
+          notes: data.notes,
+          pomodorosEstimated: data.pomodorosEstimated,
+        })
+      : dispatch({
+          type: EDIT_TASK,
+          id,
+          task: data.task,
+          notes: data.notes,
+          pomodorosEstimated: data.pomodorosEstimated,
+        });
+    handleCancel();
   };
   return (
     <Card className={classes.editForm}>
@@ -40,7 +54,7 @@ function EditTask({ id, handleEdit, task, notes, pomodorosEstimated }) {
       <form
         autoComplete="off"
         onSubmit={handleSubmit(onSubmit)}
-        id="EditTaskForm"
+        id="TaskFormForm"
       >
         <CardContent>
           <Grid container spacing={2}>
@@ -87,15 +101,18 @@ function EditTask({ id, handleEdit, task, notes, pomodorosEstimated }) {
           </Grid>
         </CardContent>
         <CardActions>
-          <Button
-            color="secondary"
-            variant="contained"
-            onClick={handleDelete}
-            edge="start"
-          >
-            Delete
-          </Button>
-          <Button color="primary" variant="outlined" onClick={handleEdit}>
+          {action === "EDIT_TASK" ? (
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={handleDelete}
+              edge="start"
+            >
+              Delete
+            </Button>
+          ) : null}
+
+          <Button color="primary" variant="outlined" onClick={handleCancel}>
             Cancel
           </Button>
           <Button variant="contained" color="primary" type="submit">
@@ -107,4 +124,4 @@ function EditTask({ id, handleEdit, task, notes, pomodorosEstimated }) {
   );
 }
 
-export default EditTask;
+export default TaskForm;
