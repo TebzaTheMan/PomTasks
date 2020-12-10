@@ -31,7 +31,7 @@ const getTotalPomodoros = (tasks, type) => {
     return a + b;
   });
 };
-const getFinishTime = (pomodorosEstimateda) => {
+const getFinishTime = (pomodorosEstimated) => {
   //for every poms you add 25 minutes and to get to another you add 5 min
   /**
    * if there is 1 pom you add only 25 minutes
@@ -44,7 +44,6 @@ const getFinishTime = (pomodorosEstimateda) => {
    *
    *
    */
-  let pomodorosEstimated = 2;
   let date = new Date();
   // add 25 minutes of pomodoros Estimated
   date.setMinutes(date.getMinutes() + pomodorosEstimated * 25);
