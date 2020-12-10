@@ -32,23 +32,17 @@ const getTotalPomodoros = (tasks, type) => {
   });
 };
 const getFinishTime = (pomodorosEstimated) => {
-  //for every poms you add 25 minutes and to get to another you add 5 min
-  /**
-   * if there is 1 pom you add only 25 minutes
-   * theres 2 poms you add 2 25 minutes and only 1 5 mins
-   * theres 3 poms you add 3 25 minutes and only 2 5 mins
-   * theres 4 poms you add 4 25 minutes and only 3 5 mins
-   *
-   *
-   *
-   *
-   *
-   */
+  const getNumLongBreak = () => {
+    let numLongBreak = (pomodorosEstimated - 1) / 4;
+    return Math.trunc(numLongBreak);
+  };
   let date = new Date();
-  // add 25 minutes of pomodoros Estimated
+  // Add 25 minutes of pomodoros Estimated
   date.setMinutes(date.getMinutes() + pomodorosEstimated * 25);
-  // 5 minutes breaks of pomodoros
+  // Add 5 minutes short breaks
   date.setMinutes(date.getMinutes() + (pomodorosEstimated - 1) * 5);
+  // Add 15 minutes long breaks
+  date.setMinutes(date.getMinutes() + getNumLongBreak() * 15);
 
   let time = date.getHours() + ":" + date.getMinutes();
 
