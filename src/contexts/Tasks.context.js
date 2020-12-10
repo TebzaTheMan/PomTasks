@@ -9,8 +9,8 @@ const defaultTasks = [
   {
     id: 1,
     task: "Welcome to Pomodoro Timer",
-    pomodorosDone: "0",
-    pomodorosEstimated: "1",
+    pomodorosDone: 0,
+    pomodorosEstimated: 1,
     notes: "Use this app to boost your productivity",
     isDone: false,
     isDoing: false,
