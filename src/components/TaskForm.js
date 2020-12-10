@@ -37,14 +37,14 @@ function TaskForm({
           type: ADD_TASK,
           task: data.task,
           notes: data.notes,
-          pomodorosEstimated: data.pomodorosEstimated,
+          pomodorosEstimated: Number(data.pomodorosEstimated),
         })
       : dispatch({
           type: EDIT_TASK,
           id,
           task: data.task,
           notes: data.notes,
-          pomodorosEstimated: data.pomodorosEstimated,
+          pomodorosEstimated: Number(data.pomodorosEstimated),
         });
     handleCancel();
   };

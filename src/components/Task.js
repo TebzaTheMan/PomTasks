@@ -45,7 +45,7 @@ Task.propTypes = {
   isDone: PropTypes.bool.isRequired,
   notes: PropTypes.string,
   pomodorosDone: PropTypes.number,
-  pomodorosEstimated: PropTypes.string.isRequired,
+  pomodorosEstimated: PropTypes.number.isRequired,
 };
 function Task({
   id,
