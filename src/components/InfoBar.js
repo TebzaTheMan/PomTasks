@@ -40,7 +40,10 @@ const getFinishTime = (pomodorosEstimated) => {
   // Add 25 minutes of pomodoros Estimated
   date.setMinutes(date.getMinutes() + pomodorosEstimated * 25);
   // Add 5 minutes short breaks
-  date.setMinutes(date.getMinutes() + (pomodorosEstimated - 1) * 5);
+  date.setMinutes(
+    date.getMinutes() +
+      ((pomodorosEstimated === 0 ? 1 : pomodorosEstimated) - 1) * 5
+  );
   // Add 15 minutes long breaks
   date.setMinutes(date.getMinutes() + getNumLongBreak() * 15);
 
