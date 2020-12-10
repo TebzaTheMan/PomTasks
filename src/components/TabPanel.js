@@ -44,7 +44,7 @@ export default function CenteredTabs() {
   };
 
   return (
-    <Paper className={classes.root} align="center">
+    <Paper className={classes.root} align="center" square variant="outlined">
       <Tabs
         value={value}
         onChange={handleChange}

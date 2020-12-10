@@ -59,7 +59,7 @@ function InfoBar() {
   const tasks = useContext(TasksContext);
   return (
     <div align="center">
-      <Paper className={classes.root} elevation={2} square>
+      <Paper className={classes.root} elevation={2} square variant="outlined">
         <Grid container>
           <Grid item xs={4}>
             <Typography variant="h5">
