@@ -19,7 +19,7 @@ const getTotalPomodoros = (tasks, type) => {
   let poms;
   if (type === "estimated") {
     poms = tasks.map((task) => {
-      return task.pomodorosEstimated;
+      return task.isDone === false && task.pomodorosEstimated;
     });
   } else {
     poms = tasks.map((task) => {
