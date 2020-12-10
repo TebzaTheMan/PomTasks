@@ -47,7 +47,10 @@ const getFinishTime = (pomodorosEstimated) => {
   // Add 15 minutes long breaks
   date.setMinutes(date.getMinutes() + getNumLongBreak() * 15);
 
-  let time = date.getHours() + ":" + date.getMinutes();
+  let time =
+    (date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()) +
+    ":" +
+    (date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes());
 
   return time;
 };
