@@ -157,7 +157,6 @@ export default function Timer({ initialMinutes, timerType, changeTab }) {
       <Typography variant="h1">
         {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
       </Typography>
-      <Typography variant="h5">{isTimeUp ? `Time Up!` : ``}</Typography>
       {showButton()}
     </div>
   );
