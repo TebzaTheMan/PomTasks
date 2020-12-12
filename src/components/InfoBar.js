@@ -8,7 +8,6 @@ import Paper from "@material-ui/core/Paper";
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 20,
-    width: "100%",
     maxWidth: 600,
     padding: 30,
     marginBottom: 30,
