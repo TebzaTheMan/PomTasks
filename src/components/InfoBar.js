@@ -27,9 +27,8 @@ const getTotalPomodoros = (tasks, type) => {
     });
   }
 
-  return poms.reduce((a, b) => {
-    return a + b;
-  });
+  let totalPoms = poms.reduce((a, b) => a + b, 0);
+  return totalPoms;
 };
 const getFinishTime = (pomodorosEstimated) => {
   const getNumLongBreak = () => {
