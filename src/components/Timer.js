@@ -13,9 +13,8 @@ Timer.propTypes = {
   initialMinutes: PropTypes.number.isRequired,
   timerType: PropTypes.string.isRequired,
 };
-
-export default function Timer(props) {
-  const { initialMinutes, timerType } = props;
+let pomsDone = 0;
+export default function Timer({ initialMinutes, timerType, changeTab }) {
   const [minutes, setMinutes] = useState(initialMinutes);
   const [seconds, setSeconds] = useState(0);
   const [isOn, setSwitch] = useState(false);
@@ -24,6 +23,7 @@ export default function Timer(props) {
   const audioClicksound = new Audio(clicksound);
   const tasks = useContext(TasksContext);
   const dispatch = useContext(DispatchContext);
+
   const start = () => {
     audioClicksound.currentTime = 0;
     audioClicksound.play();
@@ -53,6 +53,7 @@ export default function Timer(props) {
         setisTimeUp(true);
         setSwitch(false);
         audioBellsound.play();
+        countpomsDone();
         if (timerType === "pomodoro") {
           notify("Time To take a break!");
           dispatch({ type: INCREMENT_TASK });
@@ -126,6 +127,20 @@ export default function Timer(props) {
   const notify = (message) => {
     Notification.requestPermission();
     new Notification(message);
+  };
+
+  const countpomsDone = () => {
+    if (timerType === "pomodoro") {
+      if (pomsDone === 4) {
+        changeTab(2); // go to long break tab
+        pomsDone = 0;
+      } else {
+        pomsDone = pomsDone + 1;
+        changeTab(1); // go to short break
+      }
+    } else {
+      changeTab(0);
+    }
   };
   useEffect(() => {
     updateTitle();
