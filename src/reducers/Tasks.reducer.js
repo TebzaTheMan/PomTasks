@@ -5,6 +5,7 @@ import {
   EDIT_TASK,
   SELECT_TASK,
   INCREMENT_TASK,
+  REORDER_TASKS,
 } from "./../constants/actions";
 import uuid from "uuid/v4";
 const reducer = (state, action) => {
@@ -49,6 +50,8 @@ const reducer = (state, action) => {
         task.isDoing ? { ...task, pomodorosDone: task.pomodorosDone + 1 } : task
       );
 
+    case REORDER_TASKS:
+      return [...action.tasks];
     default:
       return state;
   }
