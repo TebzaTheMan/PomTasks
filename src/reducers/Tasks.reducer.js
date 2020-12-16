@@ -1,3 +1,4 @@
+import uuid from 'uuid/v4';
 import {
   ADD_TASK,
   REMOVE_TASK,
@@ -6,8 +7,8 @@ import {
   SELECT_TASK,
   INCREMENT_TASK,
   REORDER_TASKS,
-} from "./../constants/actions";
-import uuid from "uuid/v4";
+} from '../constants/actions';
+
 const reducer = (state, action) => {
   switch (action.type) {
     case ADD_TASK:
@@ -25,30 +26,26 @@ const reducer = (state, action) => {
     case REMOVE_TASK:
       return state.filter((task) => task.id !== action.id);
     case TOGGLE_TASK:
-      return state.map((task) =>
-        task.id === action.id ? { ...task, isDone: !task.isDone } : task
-      );
+      return state.map((task) => (task.id === action.id
+        ? ({ ...task, isDone: !task.isDone })
+        : task));
     case EDIT_TASK:
-      return state.map((task) =>
-        task.id === action.id
-          ? {
-              ...task,
-              task: action.task,
-              notes: action.notes,
-              pomodorosEstimated: action.pomodorosEstimated,
-            }
-          : task
-      );
+      return state.map((task) => (task.id === action.id
+        ? {
+          ...task,
+          task: action.task,
+          notes: action.notes,
+          pomodorosEstimated: action.pomodorosEstimated,
+        }
+        : task));
     case SELECT_TASK:
-      return state.map((task) =>
-        task.id === action.id
-          ? { ...task, isDoing: true }
-          : { ...task, isDoing: false }
-      );
+      return state.map((task) => (task.id === action.id
+        ? { ...task, isDoing: true }
+        : { ...task, isDoing: false }));
     case INCREMENT_TASK:
-      return state.map((task) =>
-        task.isDoing ? { ...task, pomodorosDone: task.pomodorosDone + 1 } : task
-      );
+      return state.map((task) => (task.isDoing
+        ? ({ ...task, pomodorosDone: task.pomodorosDone + 1 })
+        : task));
 
     case REORDER_TASKS:
       return [...action.tasks];

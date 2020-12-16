@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
-import TaskForm from "./TaskForm";
+import React, { useState } from 'react';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import TaskForm from './TaskForm';
 
 export default function AddTask() {
   const [showaddForm, setAddForm] = useState(false);
@@ -14,7 +14,6 @@ export default function AddTask() {
       {showaddForm ? (
         <TaskForm
           action="ADD_TASK"
-          pomodorosEstimated="1"
           handleCancel={handleClick}
         />
       ) : (

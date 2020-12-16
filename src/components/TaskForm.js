@@ -1,21 +1,23 @@
-import React, { useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import TextField from "@material-ui/core/TextField";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardActions from "@material-ui/core/CardActions";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import CardContent from "@material-ui/core/CardContent";
-import { DispatchContext } from "../contexts/Tasks.context";
-import { useForm } from "react-hook-form";
-import { EDIT_TASK, REMOVE_TASK, ADD_TASK } from "../constants/actions";
-const useStyles = makeStyles((theme) => ({
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import TextField from '@material-ui/core/TextField';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import CardContent from '@material-ui/core/CardContent';
+import { useForm } from 'react-hook-form';
+import { DispatchContext } from '../contexts/Tasks.context';
+import { EDIT_TASK, REMOVE_TASK, ADD_TASK } from '../constants/actions';
+
+const useStyles = makeStyles(() => ({
   editForm: {
     marginBottom: 15,
   },
 }));
-function TaskForm({
+export default function TaskForm({
   id,
   handleCancel,
   task,
@@ -32,25 +34,28 @@ function TaskForm({
   };
   const onSubmit = (data, e) => {
     e.preventDefault();
-    action === "ADD_TASK"
-      ? dispatch({
-          type: ADD_TASK,
-          task: data.task,
-          notes: data.notes,
-          pomodorosEstimated: Number(data.pomodorosEstimated),
-        })
-      : dispatch({
-          type: EDIT_TASK,
-          id,
-          task: data.task,
-          notes: data.notes,
-          pomodorosEstimated: Number(data.pomodorosEstimated),
-        });
+    if (action === 'ADD_TASK') {
+      dispatch({
+        type: ADD_TASK,
+        task: data.task,
+        notes: data.notes,
+        pomodorosEstimated: Number(data.pomodorosEstimated),
+        isDoing: false,
+      });
+    } else {
+      dispatch({
+        type: EDIT_TASK,
+        id,
+        task: data.task,
+        notes: data.notes,
+        pomodorosEstimated: Number(data.pomodorosEstimated),
+      });
+    }
     handleCancel();
   };
   return (
     <Card className={classes.editForm}>
-      <CardHeader title={action === "ADD_TASK" ? "ADD TASK" : "EDIT TASK"} />
+      <CardHeader title={action === 'ADD_TASK' ? 'ADD TASK' : 'EDIT TASK'} />
       <form
         autoComplete="off"
         onSubmit={handleSubmit(onSubmit)}
@@ -101,7 +106,7 @@ function TaskForm({
           </Grid>
         </CardContent>
         <CardActions>
-          {action === "EDIT_TASK" ? (
+          {action === 'EDIT_TASK' ? (
             <Button
               color="secondary"
               variant="contained"
@@ -123,5 +128,17 @@ function TaskForm({
     </Card>
   );
 }
-
-export default TaskForm;
+TaskForm.propTypes = {
+  id: PropTypes.string,
+  task: PropTypes.string,
+  notes: PropTypes.string,
+  pomodorosEstimated: PropTypes.number,
+  action: PropTypes.string.isRequired,
+  handleCancel: PropTypes.func.isRequired,
+};
+TaskForm.defaultProps = {
+  id: 'default-id',
+  task: '',
+  notes: '',
+  pomodorosEstimated: 1,
+};

@@ -1,16 +1,17 @@
-import React, { useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import Task from "./Task";
-import AddTask from "./AddTask";
-import TasksContext from "./../contexts/Tasks.context";
-import { DispatchContext } from "../contexts/Tasks.context";
-import { REORDER_TASKS } from "../constants/actions";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { useContext } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import Task from './Task';
+import AddTask from './AddTask';
+import TasksContext, { DispatchContext } from '../contexts/Tasks.context';
 
-const useStyles = makeStyles((theme) => ({
+import { REORDER_TASKS } from '../constants/actions';
+
+const useStyles = makeStyles(() => ({
   root: {
-    width: "100%",
+    width: '100%',
     maxWidth: 500,
   },
 }));
@@ -36,7 +37,7 @@ export default function Tasks() {
     const reorderedTasks = reorder(
       tasks,
       result.source.index,
-      result.destination.index
+      result.destination.index,
     );
     // call update state dispatch
     dispatch({ type: REORDER_TASKS, tasks: reorderedTasks });
@@ -65,11 +66,11 @@ export default function Tasks() {
                   } = taskObject;
                   return (
                     <Draggable key={id} draggableId={id} index={index}>
-                      {(provided) => (
+                      {(providedDrag) => (
                         <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
+                          ref={providedDrag.innerRef}
+                          {...providedDrag.draggableProps}
+                          {...providedDrag.dragHandleProps}
                         >
                           <Task
                             key={id}

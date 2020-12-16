@@ -1,18 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import bellsound from "./../sounds/bell.mp3";
-import clicksound from "./../sounds/click.mp3";
+import React, { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import bellsound from '../sounds/bell.mp3';
+import clicksound from '../sounds/click.mp3';
 
-import { INCREMENT_TASK } from "./../constants/actions";
-import { DispatchContext } from "./../contexts/Tasks.context";
-import TasksContext from "./../contexts/Tasks.context";
+import { INCREMENT_TASK } from '../constants/actions';
+import TasksContext, { DispatchContext } from '../contexts/Tasks.context';
 
-Timer.propTypes = {
-  initialMinutes: PropTypes.number.isRequired,
-  timerType: PropTypes.string.isRequired,
-};
 let pomsDone = 0;
 export default function Timer({ initialMinutes, timerType, changeTab }) {
   const [minutes, setMinutes] = useState(initialMinutes);
@@ -23,13 +18,31 @@ export default function Timer({ initialMinutes, timerType, changeTab }) {
   const audioClicksound = new Audio(clicksound);
   const tasks = useContext(TasksContext);
   const dispatch = useContext(DispatchContext);
+  const notify = (message) => {
+    Notification.requestPermission();
+    const notification = new Notification(message);
+    return notification;
+  };
 
+  const countpomsDone = () => {
+    if (timerType === 'pomodoro') {
+      if (pomsDone === 4) {
+        changeTab(2); // go to long break tab
+        pomsDone = 0;
+      } else {
+        pomsDone += 1;
+        changeTab(1); // go to short break
+      }
+    } else {
+      changeTab(0);
+    }
+  };
   const start = () => {
     audioClicksound.currentTime = 0;
     audioClicksound.play();
     setSwitch(true);
-    if (timerType === "pomodoro") {
-      notify("Time to work! You got this!");
+    if (timerType === 'pomodoro') {
+      notify('Time to work! You got this!');
     }
   };
   const stop = () => {
@@ -54,19 +67,19 @@ export default function Timer({ initialMinutes, timerType, changeTab }) {
         setSwitch(false);
         audioBellsound.play();
         countpomsDone();
-        if (timerType === "pomodoro") {
-          notify("Time To take a break!");
+        if (timerType === 'pomodoro') {
+          notify('Time To take a break!');
           dispatch({ type: INCREMENT_TASK });
         } else {
-          notify("Time to Work!");
+          notify('Time to Work!');
         }
       } else {
         setMinutes(minutes - 1);
         setSeconds(59);
       }
     }
-    if (minutes === 5 && seconds === 0 && timerType !== "shortbreak") {
-      notify("5 minutes left !");
+    if (minutes === 5 && seconds === 0 && timerType !== 'shortbreak') {
+      notify('5 minutes left !');
     }
   };
   const showButton = () => {
@@ -103,45 +116,24 @@ export default function Timer({ initialMinutes, timerType, changeTab }) {
     return button;
   };
   const updateTitle = () => {
-    let secs = seconds < 10 ? `0${seconds}` : seconds;
+    const secs = seconds < 10 ? `0${seconds}` : seconds;
     if (isTimeUp) {
       document.title = `${minutes}:${secs} - Time Up!`;
-    } else {
-      if (timerType === "pomodoro") {
-        let focusedOnTask = tasks.find(function (task) {
-          return task.isDoing === true;
-        });
+    } else if (timerType === 'pomodoro') {
+      const focusedOnTask = tasks.find((task) => task.isDoing === true);
 
-        document.title = `${minutes}:${secs} - ${
-          focusedOnTask === undefined ? "Time to work" : focusedOnTask.task
-        }`;
-      } else if (timerType === "shortbreak") {
-        document.title = `${minutes}:${secs} - time for a short break!`;
-      } else if (timerType === "longbreak") {
-        document.title = `${minutes}:${secs} - time for long break!`;
-      } else {
-        document.title = `Pomodoro Timer`;
-      }
+      document.title = `${minutes}:${secs} - ${
+        focusedOnTask === undefined ? 'Time to work' : focusedOnTask.task
+      }`;
+    } else if (timerType === 'shortbreak') {
+      document.title = `${minutes}:${secs} - time for a short break!`;
+    } else if (timerType === 'longbreak') {
+      document.title = `${minutes}:${secs} - time for long break!`;
+    } else {
+      document.title = 'Pomodoro Timer';
     }
   };
-  const notify = (message) => {
-    Notification.requestPermission();
-    new Notification(message);
-  };
 
-  const countpomsDone = () => {
-    if (timerType === "pomodoro") {
-      if (pomsDone === 4) {
-        changeTab(2); // go to long break tab
-        pomsDone = 0;
-      } else {
-        pomsDone = pomsDone + 1;
-        changeTab(1); // go to short break
-      }
-    } else {
-      changeTab(0);
-    }
-  };
   useEffect(() => {
     updateTitle();
     let interval = 0;
@@ -155,9 +147,17 @@ export default function Timer({ initialMinutes, timerType, changeTab }) {
   return (
     <div>
       <Typography variant="h1">
-        {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+        {minutes}
+        :
+        {seconds < 10 ? `0${seconds}` : seconds}
       </Typography>
       {showButton()}
     </div>
   );
 }
+
+Timer.propTypes = {
+  initialMinutes: PropTypes.number.isRequired,
+  timerType: PropTypes.string.isRequired,
+  changeTab: PropTypes.func.isRequired,
+};
