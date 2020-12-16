@@ -1,26 +1,26 @@
-import React, { useState, useContext } from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import IconButton from "@material-ui/core/IconButton";
-import Card from "@material-ui/core/Card";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
-import EditIcon from "@material-ui/icons/Edit";
+import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import Card from '@material-ui/core/Card';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import EditIcon from '@material-ui/icons/Edit';
+import Chip from '@material-ui/core/Chip';
+import TaskForm from './TaskForm';
+import { TOGGLE_TASK, SELECT_TASK } from '../constants/actions';
+import { DispatchContext } from '../contexts/Tasks.context';
 
-import { TOGGLE_TASK, SELECT_TASK } from "./../constants/actions";
-import { DispatchContext } from "./../contexts/Tasks.context";
-import { Chip } from "@material-ui/core";
-import TaskForm from "./TaskForm";
 const useStyles = makeStyles((theme) => ({
   notSelected: {
     marginBottom: 10,
-    backgroundColor: "rgb(255,255,255)",
+    backgroundColor: 'rgb(255,255,255)',
   },
   selected: {
     marginBottom: 10,
-    backgroundColor: "rgb(235, 235, 235)",
+    backgroundColor: 'rgb(235, 235, 235)',
   },
   editForm: {
     marginBottom: 15,
@@ -29,25 +29,18 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4),
   },
   done: {
-    textDecorationLine: "line-through",
-    display: "flex",
+    textDecorationLine: 'line-through',
+    display: 'flex',
   },
   notDone: {
-    textDecorationLine: "none",
+    textDecorationLine: 'none',
   },
   pomodorosDone: {
     fontSize: 23,
   },
 }));
-Task.propTypes = {
-  id: PropTypes.any.isRequired,
-  task: PropTypes.string.isRequired,
-  isDone: PropTypes.bool.isRequired,
-  notes: PropTypes.string,
-  pomodorosDone: PropTypes.number,
-  pomodorosEstimated: PropTypes.number.isRequired,
-};
-function Task({
+
+export default function Task({
   id,
   isDone,
   task,
@@ -72,7 +65,7 @@ function Task({
   };
 
   return (
-    <React.Fragment>
+    <>
       {isEditting ? (
         <TaskForm
           action="EDIT_TASK"
@@ -99,7 +92,8 @@ function Task({
             />
             <div edge="end">
               <p classes={classes.numberOfPomodoros}>
-                <span className={classes.pomodorosDone}>{pomodorosDone}</span>/
+                <span className={classes.pomodorosDone}>{pomodorosDone}</span>
+                /
                 <span className={classes.pomodorosEstimate}>
                   {pomodorosEstimated}
                 </span>
@@ -112,7 +106,16 @@ function Task({
           </ListItem>
         </Card>
       )}
-    </React.Fragment>
+    </>
   );
 }
-export default Task;
+
+Task.propTypes = {
+  id: PropTypes.string.isRequired,
+  task: PropTypes.string.isRequired,
+  isDone: PropTypes.bool.isRequired,
+  notes: PropTypes.string.isRequired,
+  pomodorosDone: PropTypes.number.isRequired,
+  pomodorosEstimated: PropTypes.number.isRequired,
+  isDoing: PropTypes.bool.isRequired,
+};
