@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   selected: {
     marginBottom: 10,
-    backgroundColor: "rgb(215, 215, 215)",
+    backgroundColor: "rgb(235, 235, 235)",
   },
   editForm: {
     marginBottom: 15,
