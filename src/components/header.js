@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Report from './Report/Report';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,6 +24,7 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             Pomodoro Timer
           </Typography>
+          <Report />
         </Toolbar>
       </AppBar>
     </div>
