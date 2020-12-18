@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
+import ActivitySummary from './ActivitySummary';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -12,12 +13,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
-    position: 'absolute',
     width: 600,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+  },
+  modalTitle: {
+    fontSize: '30px',
+    fontWeight: 'bold',
   },
 }));
 
@@ -52,9 +56,10 @@ export default function Report() {
         className={classes.modal}
       >
         <div className={classes.paper}>
-          <Typography variant="h1">
+          <Typography variant="h1" className={classes.modalTitle}>
             Personal Report
           </Typography>
+          <ActivitySummary />
         </div>
       </Modal>
     </>
