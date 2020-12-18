@@ -35,7 +35,7 @@ export default function FocusHours() {
         />
         <VictoryBar
           data={WeeklyData}
-          labels={({ datum }) => `${datum.focusedHours} hours`}
+          labels={({ datum }) => `${Number.isInteger(datum.focusedHours) ? datum.focusedHours : datum.focusedHours.toFixed(2)} hours`}
           labelComponent={<VictoryTooltip />}
           x="date"
           y="focusedHours"

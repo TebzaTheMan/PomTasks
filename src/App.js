@@ -14,7 +14,9 @@ function App() {
         <Header />
       </WeeklyDataProvider>
       <TasksProvider>
-        <TabPanel />
+        <WeeklyDataProvider>
+          <TabPanel />
+        </WeeklyDataProvider>
         <Tasks />
         <InfoBar />
       </TasksProvider>

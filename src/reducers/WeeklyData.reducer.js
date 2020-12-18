@@ -1,54 +1,23 @@
-import uuid from 'uuid/v4';
 import {
-  ADD_TASK,
-  REMOVE_TASK,
-  TOGGLE_TASK,
-  EDIT_TASK,
-  SELECT_TASK,
-  INCREMENT_TASK,
-  REORDER_TASKS,
+  INCREMENT_FOCUSHOURS,
 } from '../constants/actions';
 
+const today = Date.now();
+const todayDate = new Date(today);
+
+const month = todayDate.toLocaleString('en-US', { month: 'short' });
+const shortenedDate = `${todayDate.getDate()}-${month}`;
+
+const MinuteInHours = 1 / 60;
 const reducer = (state, action) => {
   switch (action.type) {
-    case ADD_TASK:
-      return [
-        ...state,
-        {
-          id: uuid(),
-          isDone: false,
-          task: action.task,
-          notes: action.notes,
-          pomodorosDone: 0,
-          pomodorosEstimated: action.pomodorosEstimated,
-        },
-      ];
-    case REMOVE_TASK:
-      return state.filter((task) => task.id !== action.id);
-    case TOGGLE_TASK:
-      return state.map((task) => (task.id === action.id
-        ? ({ ...task, isDone: !task.isDone })
-        : task));
-    case EDIT_TASK:
-      return state.map((task) => (task.id === action.id
+    case INCREMENT_FOCUSHOURS:
+      return state.map((data) => (data.date === shortenedDate
         ? {
-          ...task,
-          task: action.task,
-          notes: action.notes,
-          pomodorosEstimated: action.pomodorosEstimated,
+          ...data,
+          focusedHours: data.focusedHours + MinuteInHours,
         }
-        : task));
-    case SELECT_TASK:
-      return state.map((task) => (task.id === action.id
-        ? { ...task, isDoing: true }
-        : { ...task, isDoing: false }));
-    case INCREMENT_TASK:
-      return state.map((task) => (task.isDoing
-        ? ({ ...task, pomodorosDone: task.pomodorosDone + 1 })
-        : task));
-
-    case REORDER_TASKS:
-      return [...action.tasks];
+        : data));
     default:
       return state;
   }

@@ -5,8 +5,9 @@ import Button from '@material-ui/core/Button';
 import bellsound from '../sounds/bell.mp3';
 import clicksound from '../sounds/click.mp3';
 
-import { INCREMENT_TASK } from '../constants/actions';
+import { INCREMENT_TASK, INCREMENT_FOCUSHOURS } from '../constants/actions';
 import TasksContext, { DispatchContext } from '../contexts/Tasks.context';
+import { DispatchContext as WeeklyDataContext } from '../contexts/WeeklyData.context';
 
 let pomsDone = 0;
 export default function Timer({ initialMinutes, timerType, changeTab }) {
@@ -18,6 +19,7 @@ export default function Timer({ initialMinutes, timerType, changeTab }) {
   const audioClicksound = new Audio(clicksound);
   const tasks = useContext(TasksContext);
   const dispatch = useContext(DispatchContext);
+  const WeeklyDataDispatch = useContext(WeeklyDataContext);
   const notify = (message) => {
     Notification.requestPermission();
     const notification = new Notification(message);
@@ -80,6 +82,10 @@ export default function Timer({ initialMinutes, timerType, changeTab }) {
     }
     if (minutes === 5 && seconds === 0 && timerType !== 'shortbreak') {
       notify('5 minutes left !');
+    }
+    if (seconds === 0 && !isTimeUp && timerType === 'pomodoro' && minutes !== '25') {
+      // increment focused hours of today
+      WeeklyDataDispatch({ type: INCREMENT_FOCUSHOURS });
     }
   };
   const showButton = () => {
