@@ -10,11 +10,9 @@ import InfoBar from './components/InfoBar';
 function App() {
   return (
     <div className="App">
-      <WeeklyDataProvider>
-        <Header />
-      </WeeklyDataProvider>
       <TasksProvider>
         <WeeklyDataProvider>
+          <Header />
           <TabPanel />
         </WeeklyDataProvider>
         <Tasks />
