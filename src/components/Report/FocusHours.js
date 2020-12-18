@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import {
-  VictoryChart, VictoryBar, VictoryAxis, VictoryLabel,
+  VictoryChart, VictoryBar, VictoryAxis, VictoryLabel, VictoryTooltip,
 } from 'victory';
 
 const useStyles = makeStyles(() => ({
@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 const data = [
-  { date: '12-Dec', focusedHours: 0 },
+  { date: '12-Dec', focusedHours: 0.6 },
   { date: '13-Dec', focusedHours: 1 },
   { date: '14-Dec', focusedHours: 0.5 },
   { date: '15-Dec', focusedHours: 0.2 },
@@ -41,6 +41,8 @@ export default function FocusHours() {
         />
         <VictoryBar
           data={data}
+          labels={({ datum }) => `${datum.focusedHours} hours`}
+          labelComponent={<VictoryTooltip />}
           x="date"
           y="focusedHours"
           style={{
