@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import AssessmentIcon from '@material-ui/icons/Assessment';
+import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import ActivitySummary from './ActivitySummary';
@@ -24,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
   modalTitle: {
     fontSize: '30px',
     fontWeight: 'bold',
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(2),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
   },
 }));
 
@@ -61,6 +68,16 @@ export default function Report() {
           <Typography variant="h1" className={classes.modalTitle}>
             Personal Report
           </Typography>
+          <IconButton
+            aria-label="close report-modal"
+            aria-controls="close-modal"
+            color="inherit"
+            edge="end"
+            onClick={handleClose}
+            className={classes.closeButton}
+          >
+            <CloseIcon />
+          </IconButton>
           <ActivitySummary />
           <FocusHours />
         </div>
