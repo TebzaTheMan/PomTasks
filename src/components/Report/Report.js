@@ -5,12 +5,14 @@ import AssessmentIcon from '@material-ui/icons/Assessment';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import ActivitySummary from './ActivitySummary';
+import FocusHours from './FocusHours';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
+    overflow: 'scroll',
   },
   paper: {
     width: 600,
@@ -60,6 +62,7 @@ export default function Report() {
             Personal Report
           </Typography>
           <ActivitySummary />
+          <FocusHours />
         </div>
       </Modal>
     </>
