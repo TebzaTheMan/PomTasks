@@ -8,7 +8,7 @@ const todayDate = new Date(today);
 
 const month = todayDate.toLocaleString('en-US', { month: 'short' });
 const shortenedDate = `${todayDate.getDate()}-${month}`;
-
+let newState = [];
 const MinuteInHours = 1 / 60;
 const reducer = (state, action) => {
   switch (action.type) {
@@ -20,9 +20,10 @@ const reducer = (state, action) => {
         }
         : data));
     case MOVE_TO_NEWDAY:
-      state.shift(); // remove the first date as it is outdated
-      state.push({ date: shortenedDate, focusedHours: 0 }); // add today's date
-      return state;
+      newState = [...state];
+      newState.shift();// remove the first date as it is outdated
+      newState.push({ date: shortenedDate, focusedHours: 0 }); // add today's date
+      return newState;
     default:
       return state;
   }

@@ -16,7 +16,12 @@ const useStyles = makeStyles(() => ({
 }));
 const hasOneDayPassed = () => {
   const date = new Date().toLocaleDateString();
-  if (localStorage.todayDate === date) return false;
+  if (localStorage.todayDate === date) {
+    return false;
+  } if (localStorage.todayDate === undefined) { // this is for first time run!
+    localStorage.todayDate = date;
+    return false;
+  }
   localStorage.todayDate = date;
   return true;
 };
@@ -62,38 +67,3 @@ export default function FocusHours() {
     </>
   );
 }
-/**
-const oneDay = 24 * 60 * 60 * 1000;
-
- let today = Date.now();
-
- let todayDate = new Date(today);
-
- let todayDateVal = todayDate.getTime();
-
- let prevWeek = new Date(todayDate.getTime() - oneDay * 6);
-
-let week = {};
-
-let dataHold = [];
- //set each day of the week to zero
-
- for (let x = 0; x < 7; x++) {
-
-   let thisDay = prevWeek.toLocaleDateString();
-   week[thisDay] = 0;
-
-   prevWeek.setDate(prevWeek.getDate() + 1);
-
- }
-
- for (let x = 0; x < 7; x++) {
-
-   let current =  new Date(Object.keys(week)[x]);
-   let month = current.toLocaleString('en-US', {  month: 'short'});
-   let shortenedDate = `${current.getDate()}-${month}`
-
-   dataHold.push({ date: shortenedDate, focusedHours: week[Object.keys(week)[x]] });}
-
-console.log(dataHold)
- */
