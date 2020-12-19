@@ -1,5 +1,6 @@
 import {
   INCREMENT_FOCUSHOURS,
+  MOVE_TO_NEWDAY,
 } from '../constants/actions';
 
 const today = Date.now();
@@ -18,6 +19,10 @@ const reducer = (state, action) => {
           focusedHours: data.focusedHours + MinuteInHours,
         }
         : data));
+    case MOVE_TO_NEWDAY:
+      state.shift(); // remove the first date as it is outdated
+      state.push({ date: shortenedDate, focusedHours: 0 }); // add today's date
+      return state;
     default:
       return state;
   }

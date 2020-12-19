@@ -5,7 +5,8 @@ import Divider from '@material-ui/core/Divider';
 import {
   VictoryChart, VictoryBar, VictoryAxis, VictoryLabel, VictoryTooltip,
 } from 'victory';
-import WeeklyDataContext from '../../contexts/WeeklyData.context';
+import WeeklyDataContext, { DispatchContext } from '../../contexts/WeeklyData.context';
+import { MOVE_TO_NEWDAY } from '../../constants/actions';
 
 const useStyles = makeStyles(() => ({
   heading: {
@@ -13,10 +14,23 @@ const useStyles = makeStyles(() => ({
     marginTop: 20,
   },
 }));
+const hasOneDayPassed = () => {
+  const date = new Date().toLocaleDateString();
+  if (localStorage.todayDate === date) return false;
+  localStorage.todayDate = date;
+  return true;
+};
+const updateWeeklyData = (dispatch) => {
+  if (!hasOneDayPassed()) return false;
+  dispatch({ type: MOVE_TO_NEWDAY });
+  return true;
+};
 
 export default function FocusHours() {
   const classes = useStyles();
   const WeeklyData = useContext(WeeklyDataContext);
+  const dispatch = useContext(DispatchContext);
+  updateWeeklyData(dispatch);
   return (
     <>
       <Typography variant="h2" className={classes.heading}>
