@@ -6,15 +6,29 @@ const WeeklyDataContext = createContext();
 export const DispatchContext = createContext();
 export default WeeklyDataContext;
 
-const defaultWeeklyData = [
-  { date: '12-Dec', focusedHours: 0.6 },
-  { date: '13-Dec', focusedHours: 1 },
-  { date: '14-Dec', focusedHours: 0.5 },
-  { date: '15-Dec', focusedHours: 0.2 },
-  { date: '16-Dec', focusedHours: 0.7 },
-  { date: '17-Dec', focusedHours: 0.1 },
-  { date: '18-Dec', focusedHours: 0.5 },
-];
+const getThisWeekDays = () => {
+  const oneDay = 24 * 60 * 60 * 1000;
+  const today = Date.now();
+  const todayDate = new Date(today);
+  const prevWeek = new Date(todayDate.getTime() - oneDay * 6);
+  const week = {};
+  const dataHold = [];
+
+  for (let x = 0; x < 7; x += 1) {
+    const thisDay = prevWeek.toLocaleDateString();
+    week[thisDay] = 0;
+    prevWeek.setDate(prevWeek.getDate() + 1);
+  }
+  for (let x = 0; x < 7; x += 1) {
+    const current = new Date(Object.keys(week)[x]);
+    const month = current.toLocaleString('en-US', { month: 'short' });
+    const shortenedDate = `${current.getDate()}-${month}`;
+    dataHold.push({ date: shortenedDate, focusedHours: week[Object.keys(week)[x]] });
+  }
+  return dataHold;
+};
+const defaultWeeklyData = getThisWeekDays();
+
 // eslint-disable-next-line react/prop-types
 export function WeeklyDataProvider({ children }) {
   const [WeeklyData, dispatch] = useLocalStorageReducer(
