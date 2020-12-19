@@ -83,4 +83,5 @@ function InfoBar() {
   );
 }
 
-export default InfoBar;
+const MemoInfoBar = React.memo(InfoBar);
+export default MemoInfoBar;

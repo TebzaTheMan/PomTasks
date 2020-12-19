@@ -10,13 +10,13 @@ import TasksContext, { DispatchContext } from '../contexts/Tasks.context';
 import { DispatchContext as WeeklyDataContext } from '../contexts/WeeklyData.context';
 
 let pomsDone = 0;
+const audioBellsound = new Audio(bellsound);
+const audioClicksound = new Audio(clicksound);
 export default function Timer({ initialMinutes, timerType, changeTab }) {
   const [minutes, setMinutes] = useState(initialMinutes);
   const [seconds, setSeconds] = useState(0);
   const [isOn, setSwitch] = useState(false);
   const [isTimeUp, setisTimeUp] = useState(false);
-  const audioBellsound = new Audio(bellsound);
-  const audioClicksound = new Audio(clicksound);
   const tasks = useContext(TasksContext);
   const dispatch = useContext(DispatchContext);
   const WeeklyDataDispatch = useContext(WeeklyDataContext);
