@@ -34,14 +34,14 @@ const thisWeek = getThisWeek();
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case DIFFERENT_DAY:
+    case INCREMENT_FOCUSHOURS:
       return state.map((data) => (data.date === getTodayDate()
         ? {
           ...data,
           focusedHours: data.focusedHours + MinuteInHours,
         }
         : data));
-    case INCREMENT_FOCUSHOURS:
+    case DIFFERENT_DAY:
       // remove all the dates that are not part of this week
       newState = state.filter((current) => (!isThisWeek(current.date)));
       // add all the dates that are part of this week if a date is not there just add it!
