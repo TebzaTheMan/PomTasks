@@ -9,7 +9,7 @@ export default function FocusChart({ data, type }) {
   return (
     <VictoryChart
       domainPadding={30}
-      maxDomain={type === 'today' && data[0].focusedHours < 1 && { y: 1 }}
+      maxDomain={type === 'today' && data[0].focusedHours < 1 ? { y: 1 } : null}
     >
       <VictoryAxis
         tickFormat={(x) => format(new Date(x), 'dd-MMM')}
