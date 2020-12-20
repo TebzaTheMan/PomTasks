@@ -8,7 +8,7 @@ import format from 'date-fns/format';
 export default function FocusChart({ data, type }) {
   return (
     <VictoryChart
-      domainPadding={20}
+      domainPadding={30}
     >
       <VictoryAxis
         tickFormat={(x) => format(new Date(x), 'dd-MMM')}
