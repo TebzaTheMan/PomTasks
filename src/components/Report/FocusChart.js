@@ -2,6 +2,7 @@ import React from 'react';
 import {
   VictoryChart, VictoryBar, VictoryAxis, VictoryTooltip,
 } from 'victory';
+import format from 'date-fns/format';
 
 // eslint-disable-next-line react/prop-types
 export default function FocusChart({ data, type }) {
@@ -9,7 +10,9 @@ export default function FocusChart({ data, type }) {
     <VictoryChart
       domainPadding={20}
     >
-      <VictoryAxis />
+      <VictoryAxis
+        tickFormat={(x) => format(new Date(x), 'dd-MMM')}
+      />
       <VictoryAxis
         dependentAxis
       />

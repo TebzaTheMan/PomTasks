@@ -6,8 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import format from 'date-fns/format';
 import WeeklyDataContext, { DispatchContext } from '../../contexts/WeeklyData.context';
-import { MOVE_TO_NEWDAY } from '../../constants/actions';
+import { DIFFERENT_DAY } from '../../constants/actions';
 import FocusChart from './FocusChart';
 
 function TabPanel({
@@ -46,7 +47,7 @@ const hasOneDayPassed = () => {
 };
 const updateWeeklyData = (dispatch) => {
   if (!hasOneDayPassed()) return false;
-  dispatch({ type: MOVE_TO_NEWDAY });
+  dispatch({ type: DIFFERENT_DAY });
   return true;
 };
 
@@ -54,7 +55,7 @@ export default function FocusHours() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const weeklyData = useContext(WeeklyDataContext);
-  const todayData = [weeklyData[weeklyData.length - 1]]; // get last date (today's date)
+  const todayData = [weeklyData.filter((data) => data.date === format(new Date(), 'MM/dd/yyyy'))];
   const dispatch = useContext(DispatchContext);
   updateWeeklyData(dispatch);
   const handleChange = (event, newValue) => {
@@ -77,7 +78,7 @@ export default function FocusHours() {
         <Tab label="This Week" />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <FocusChart data={todayData} type="today" />
+        <FocusChart data={todayData[0]} type="today" />
       </TabPanel>
 
       <TabPanel value={value} index={1}>
