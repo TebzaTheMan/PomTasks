@@ -10,9 +10,14 @@ export default function TotalHours({ data }) {
     data.map((entry) => focusHours.push(entry.focusedHours));
     return focusHours.reduce((a, b) => a + b, 0);
   };
+  const totalTime = getTotalTime();
   const getHours = (time) => Math.trunc(time);
-  // eslint-disable-next-line no-console
-  console.log(getTotalTime());
+
+  const getMinutes = (time) => {
+    const remainderHours = time - Math.trunc(time);
+    const minutes = remainderHours * 60;
+    return minutes.toFixed(0);
+  };
   return (
     <>
       <Divider />
@@ -24,8 +29,10 @@ export default function TotalHours({ data }) {
         </Box>
         <Box>
           <Typography variant="h5">
-            {getHours(getTotalTime())}
-            h and 21mins
+            {getHours(totalTime)}
+            h and
+            {getMinutes(totalTime)}
+            mins
           </Typography>
         </Box>
       </Box>
