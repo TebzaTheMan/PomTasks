@@ -31,6 +31,7 @@ export default function TotalHours({ data }) {
           <Typography variant="h5">
             {getHours(totalTime)}
             h and
+            {' '}
             {getMinutes(totalTime)}
             mins
           </Typography>
