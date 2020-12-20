@@ -8,7 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import format from 'date-fns/format';
 import WeeklyDataContext, { DispatchContext } from '../../contexts/WeeklyData.context';
-import { DIFFERENT_DAY } from '../../constants/actions';
+import { NEW_WEEK } from '../../constants/actions';
 import FocusChart from './FocusChart';
 
 function TabPanel({
@@ -47,7 +47,7 @@ const hasOneDayPassed = () => {
 };
 const updateWeeklyData = (dispatch) => {
   if (!hasOneDayPassed()) return false;
-  dispatch({ type: DIFFERENT_DAY });
+  dispatch({ type: NEW_WEEK });
   return true;
 };
 
