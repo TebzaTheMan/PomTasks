@@ -84,7 +84,6 @@ export default function FocusHours() {
       <TabPanel value={value} index={1}>
         <FocusChart data={weeklyData} type="week" />
       </TabPanel>
-
     </>
   );
 }

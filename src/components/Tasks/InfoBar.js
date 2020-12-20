@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import TasksContext from '../contexts/Tasks.context';
+import TasksContext from '../../contexts/Tasks.context';
 
 const useStyles = makeStyles(() => ({
   root: {

@@ -2,10 +2,10 @@ import React from 'react';
 import './App.css';
 import Header from './components/header';
 import TabPanel from './components/TabPanel';
-import Tasks from './components/Tasks';
+import Tasks from './components/Tasks/Tasks';
 import { TasksProvider } from './contexts/Tasks.context';
 import { WeeklyDataProvider } from './contexts/WeeklyData.context';
-import InfoBar from './components/InfoBar';
+import InfoBar from './components/Tasks/InfoBar';
 
 function App() {
   return (

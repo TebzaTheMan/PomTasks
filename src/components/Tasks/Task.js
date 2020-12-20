@@ -10,8 +10,8 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import EditIcon from '@material-ui/icons/Edit';
 import Chip from '@material-ui/core/Chip';
 import TaskForm from './TaskForm';
-import { TOGGLE_TASK, SELECT_TASK } from '../constants/actions';
-import { DispatchContext } from '../contexts/Tasks.context';
+import { TOGGLE_TASK, SELECT_TASK } from '../../constants/actions';
+import { DispatchContext } from '../../contexts/Tasks.context';
 
 const useStyles = makeStyles((theme) => ({
   notSelected: {

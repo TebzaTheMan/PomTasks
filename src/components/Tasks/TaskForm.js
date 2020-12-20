@@ -9,8 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import { useForm } from 'react-hook-form';
-import { DispatchContext } from '../contexts/Tasks.context';
-import { EDIT_TASK, REMOVE_TASK, ADD_TASK } from '../constants/actions';
+import { DispatchContext } from '../../contexts/Tasks.context';
+import { EDIT_TASK, REMOVE_TASK, ADD_TASK } from '../../constants/actions';
 
 const useStyles = makeStyles(() => ({
   editForm: {

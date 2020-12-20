@@ -5,9 +5,9 @@ import List from '@material-ui/core/List';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Task from './Task';
 import AddTask from './AddTask';
-import TasksContext, { DispatchContext } from '../contexts/Tasks.context';
+import TasksContext, { DispatchContext } from '../../contexts/Tasks.context';
 
-import { REORDER_TASKS } from '../constants/actions';
+import { REORDER_TASKS } from '../../constants/actions';
 
 const useStyles = makeStyles(() => ({
   root: {
