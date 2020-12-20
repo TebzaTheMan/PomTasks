@@ -7,6 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import format from 'date-fns/format';
+import isThisWeek from 'date-fns/isThisWeek';
 import WeeklyDataContext, { DispatchContext } from '../../contexts/WeeklyData.context';
 import { NEW_WEEK } from '../../constants/actions';
 import FocusChart from './FocusChart';
@@ -34,23 +35,22 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const hasOneDayPassed = () => {
+const isNewWeek = () => {
   const date = new Date().toLocaleDateString();
-  if (localStorage.todayDate === date) {
+  if (!isThisWeek(localStorage.lastUsed)) {
     return false;
-  } if (localStorage.todayDate === undefined) { // this is for first time run!
-    localStorage.todayDate = date;
+  } if (localStorage.lastUsed === undefined) { // this is for first time run!
+    localStorage.lastUsed = date;
     return false;
   }
-  localStorage.todayDate = date;
+  localStorage.lastUsed = date;
   return true;
 };
 const updateWeeklyData = (dispatch) => {
-  if (!hasOneDayPassed()) return false;
+  if (!isNewWeek()) return false;
   dispatch({ type: NEW_WEEK });
   return true;
 };
-
 export default function FocusHours() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
