@@ -1,14 +1,15 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import {
   VictoryChart, VictoryBar, VictoryAxis, VictoryTooltip,
 } from 'victory';
 import format from 'date-fns/format';
 
-// eslint-disable-next-line react/prop-types
 export default function FocusChart({ data, type }) {
   return (
     <VictoryChart
       domainPadding={30}
+      maxDomain={type === 'today' && data[0].focusedHours < 1 && { y: 1 }}
     >
       <VictoryAxis
         tickFormat={(x) => format(new Date(x), 'dd-MMM')}
