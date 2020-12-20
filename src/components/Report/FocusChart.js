@@ -7,28 +7,30 @@ import format from 'date-fns/format';
 
 export default function FocusChart({ data, type }) {
   return (
-    <VictoryChart
-      domainPadding={30}
-      maxDomain={type === 'today' && data[0].focusedHours < 1 ? { y: 1 } : null}
-    >
-      <VictoryAxis
-        tickFormat={(x) => format(new Date(x), 'dd-MMM')}
-      />
-      <VictoryAxis
-        dependentAxis
-      />
-      <VictoryBar
-        data={data}
-        labels={({ datum }) => `${Number.isInteger(datum.focusedHours) ? datum.focusedHours : datum.focusedHours.toFixed(2)} hours`}
-        labelComponent={<VictoryTooltip />}
-        x="date"
-        y="focusedHours"
-        style={{
-          data: { fill: '#1976d2' },
+    <>
+      <VictoryChart
+        domainPadding={30}
+        maxDomain={type === 'today' && data[0].focusedHours < 1 ? { y: 1 } : null}
+      >
+        <VictoryAxis
+          tickFormat={(x) => format(new Date(x), 'dd-MMM')}
+        />
+        <VictoryAxis
+          dependentAxis
+        />
+        <VictoryBar
+          data={data}
+          labels={({ datum }) => `${Number.isInteger(datum.focusedHours) ? datum.focusedHours : datum.focusedHours.toFixed(2)} hours`}
+          labelComponent={<VictoryTooltip />}
+          x="date"
+          y="focusedHours"
+          style={{
+            data: { fill: '#1976d2' },
 
-        }}
-        barRatio={type === 'today' ? 15 : 0.9}
-      />
-    </VictoryChart>
+          }}
+          barRatio={type === 'today' ? 15 : 0.9}
+        />
+      </VictoryChart>
+    </>
   );
 }

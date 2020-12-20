@@ -11,6 +11,7 @@ import isThisWeek from 'date-fns/isThisWeek';
 import WeeklyDataContext, { DispatchContext } from '../../contexts/WeeklyData.context';
 import { NEW_WEEK } from '../../constants/actions';
 import FocusChart from './FocusChart';
+import TotalHours from './TotalHours';
 
 function TabPanel({
   children, value, index, ...other
@@ -79,10 +80,12 @@ export default function FocusHours() {
       </Tabs>
       <TabPanel value={value} index={0}>
         <FocusChart data={todayData[0]} type="today" />
+        <TotalHours data={todayData[0]} />
       </TabPanel>
 
       <TabPanel value={value} index={1}>
         <FocusChart data={weeklyData} type="week" />
+        <TotalHours data={weeklyData} />
       </TabPanel>
     </>
   );
