@@ -37,10 +37,10 @@ const useStyles = makeStyles(() => ({
 
 const isNewWeek = () => {
   const date = new Date().toLocaleDateString();
-  if (!isThisWeek(localStorage.lastUsed)) {
-    return false;
-  } if (localStorage.lastUsed === undefined) { // this is for first time run!
+  if (localStorage.lastUsed === undefined) { // this is for first time run!
     localStorage.lastUsed = date;
+    return false;
+  } if (isThisWeek(new Date(localStorage.lastUsed))) {
     return false;
   }
   localStorage.lastUsed = date;
