@@ -92,8 +92,8 @@ export default function Tasks() {
             )}
           </Droppable>
         </DragDropContext>
-        <AddTask />
       </List>
+      <AddTask />
     </div>
   );
 }
