@@ -79,7 +79,7 @@ export default function Task({
         <Card className={isDoing ? classes.selected : classes.notSelected}>
           <ListItem button className={isDone ? classes.done : classes.notDone}>
             {isDoing ? (
-              <Chip label="Focusing On" color="primary" size="small" />
+              <Chip label="Focusing On" color="secondary" size="small" />
             ) : null}
             <IconButton onClick={handleDone}>
               {isDone ? <CheckCircleIcon /> : <RadioButtonUncheckedIcon />}
