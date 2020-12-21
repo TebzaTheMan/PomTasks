@@ -30,7 +30,12 @@ const useStyles = makeStyles(() => ({
     padding: 10,
   },
 }));
-
+const getTotalFocusHours = () => {
+  const totalHours = localStorage.hoursFocused === undefined
+    ? localStorage.setItem('hoursFocused', 0)
+    : localStorage.getItem('hoursFocused');
+  return Number.parseFloat(totalHours).toFixed(1);
+};
 export default function ActivitySummary() {
   const classes = useStyles();
   return (
@@ -49,7 +54,7 @@ export default function ActivitySummary() {
               </Grid>
               <Grid item xs={9}>
                 <Typography className={classes.numbers} color="textSecondary" gutterBottom>
-                  15
+                  {getTotalFocusHours()}
                 </Typography>
                 <Typography className={classes.text} color="textSecondary" gutterBottom>
                   hours focused

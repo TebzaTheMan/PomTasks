@@ -29,6 +29,7 @@ const getNewWeekDays = () => {
 const reducer = (state, action) => {
   switch (action.type) {
     case INCREMENT_FOCUSHOURS:
+      localStorage.hoursFocused = Number(localStorage.hoursFocused) + Number(MinuteInHours);
       return state.map((data) => (data.date === getTodayDate()
         ? {
           ...data,
