@@ -59,9 +59,8 @@ const getStats = () => {
     localStorage.setItem('streak', 0);
   }
 };
-
 const daysAccessed = localStorage.daysAccessed === undefined
-  ? localStorage.setItem('daysAccessed', 1)
+  ? localStorage.daysAccessed = 1
   : localStorage.getItem('daysAccessed');
 
 getStats();
