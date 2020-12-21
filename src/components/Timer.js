@@ -83,7 +83,7 @@ export default function Timer({ initialMinutes, timerType, changeTab }) {
     if (minutes === 5 && seconds === 0 && timerType !== 'shortbreak') {
       notify('5 minutes left !');
     }
-    if (seconds === 0 && !isTimeUp && timerType === 'pomodoro' && minutes !== '25') {
+    if (seconds === 0 && !isTimeUp && timerType === 'pomodoro' && minutes !== '24') {
       // increment focused hours of today
       WeeklyDataDispatch({ type: INCREMENT_FOCUSHOURS });
     }
