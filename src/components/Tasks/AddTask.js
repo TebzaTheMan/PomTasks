@@ -6,7 +6,7 @@ import TaskForm from './TaskForm';
 
 const useStyles = makeStyles(() => ({
   taskForm: {
-    width: '100%',
+    width: '97%',
     maxWidth: 500,
   },
 }));
