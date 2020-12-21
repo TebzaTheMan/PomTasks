@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Task from './Task';
@@ -13,6 +14,10 @@ const useStyles = makeStyles(() => ({
   root: {
     width: '97%',
     maxWidth: 500,
+  },
+  taskHeading: {
+    marginTop: 10,
+    fontSize: '55px',
   },
 }));
 // Reorder the list items
@@ -44,7 +49,9 @@ export default function Tasks() {
   };
   return (
     <div className="tasks" align="center">
-      <h1>Tasks</h1>
+      <Typography variant="h1" className={classes.taskHeading}>
+        Tasks
+      </Typography>
       <List
         component="nav"
         aria-labelledby="nested-list-subheader"
