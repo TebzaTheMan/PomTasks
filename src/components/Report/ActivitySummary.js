@@ -49,16 +49,22 @@ const hasOneDayPassed = () => {
   }
   return respond;
 };
-const getStreak = () => {
+const getStats = () => {
   const respond = hasOneDayPassed();
   if (respond === 'yes') {
     localStorage.streak = Number(localStorage.streak) + 1;
+    localStorage.daysAccessed = Number(localStorage.daysAccessed) + 1;
     localStorage.lastUsed = new Date().toLocaleDateString();
   } else if (respond === 'no') {
     localStorage.setItem('streak', 0);
   }
 };
-getStreak();
+
+const daysAccessed = localStorage.daysAccessed === undefined
+  ? localStorage.setItem('daysAccessed', 1)
+  : localStorage.getItem('daysAccessed');
+
+getStats();
 const streak = localStorage.streak === undefined
   ? localStorage.setItem('streak', 0)
   : localStorage.getItem('streak');
@@ -98,7 +104,7 @@ export default function ActivitySummary() {
               </Grid>
               <Grid item xs={9}>
                 <Typography className={classes.numbers} color="textSecondary" gutterBottom>
-                  11
+                  {daysAccessed}
                 </Typography>
                 <Typography className={classes.text} color="textSecondary" gutterBottom>
                   days Accessed
