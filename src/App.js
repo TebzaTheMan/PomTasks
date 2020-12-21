@@ -17,6 +17,14 @@ const theme = createMuiTheme({
     secondary: {
       main: '#169D7F',
     },
+    bodyText: {
+      main: '#565656',
+    },
+  },
+  typography: {
+    allVariants: {
+      color: '#565656',
+    },
   },
 });
 
