@@ -4,8 +4,10 @@ import {
   VictoryChart, VictoryBar, VictoryAxis, VictoryTooltip,
 } from 'victory';
 import format from 'date-fns/format';
+import { useTheme } from '@material-ui/core/styles';
 
 export default function FocusChart({ data, type }) {
+  const theme = useTheme();
   return (
     <>
       <VictoryChart
@@ -25,7 +27,7 @@ export default function FocusChart({ data, type }) {
           x="date"
           y="focusedHours"
           style={{
-            data: { fill: '#1976d2' },
+            data: { fill: theme.palette.secondary.light },
 
           }}
           barRatio={type === 'today' ? 15 : 0.9}
