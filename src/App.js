@@ -11,12 +11,11 @@ import InfoBar from './components/Tasks/InfoBar';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      // Purple and green play nicely together.
-      main: '#B45CC3',
+      main: '#F37122',
+      contrastText: 'rgb(255,255,255)',
     },
     secondary: {
-      // This is green.A700 as hex.
-      main: '#11cb5f',
+      main: '#169D7F',
     },
   },
 });
