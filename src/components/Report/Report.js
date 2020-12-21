@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import ActivitySummary from './ActivitySummary';
 import FocusHours from './FocusHours';
@@ -65,9 +64,6 @@ export default function Report() {
         className={classes.modal}
       >
         <div className={classes.paper}>
-          <Typography variant="h1" className={classes.modalTitle}>
-            Personal Report
-          </Typography>
           <IconButton
             aria-label="close report-modal"
             aria-controls="close-modal"
