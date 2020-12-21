@@ -81,7 +81,7 @@ export default function ActivitySummary() {
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={6} md={4} className={classes.gridItem}>
           <Card className={classes.card}>
-            <Grid container>
+            <Grid container spacing={4}>
               <Grid item xs={3}>
                 <AccessTimeIcon className={classes.Icon} fontSize="large" />
               </Grid>
@@ -99,7 +99,7 @@ export default function ActivitySummary() {
         </Grid>
         <Grid item xs={6} md={4} className={classes.gridItem}>
           <Card className={classes.card}>
-            <Grid container>
+            <Grid container spacing={4}>
               <Grid item xs={3}>
                 <TodayIcon className={classes.Icon} fontSize="large" />
               </Grid>
@@ -118,7 +118,7 @@ export default function ActivitySummary() {
 
         <Grid item xs={6} md={4} className={classes.gridItem}>
           <Card className={classes.card}>
-            <Grid container>
+            <Grid container spacing={4}>
               <Grid item xs={3}>
                 <WhatshotIcon className={classes.Icon} fontSize="large" />
               </Grid>
