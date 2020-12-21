@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import TodayIcon from '@material-ui/icons/Today';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
+import isYesterday from 'date-fns/isYesterday';
 
 const useStyles = makeStyles(() => ({
   heading: {
@@ -36,6 +37,29 @@ const getTotalFocusHours = () => {
     : localStorage.getItem('hoursFocused');
   return Number.parseFloat(totalHours).toFixed(1);
 };
+const hasOneDayPassed = () => {
+  let respond;
+  const todayDate = new Date().toLocaleDateString();
+  if (isYesterday(new Date(localStorage.lastUsed))) {
+    respond = 'yes';
+  } else if (localStorage.lastUsed === todayDate) {
+    respond = 'today';
+  } else {
+    respond = 'no';
+  }
+  return respond;
+};
+const getStreak = () => {
+  const respond = hasOneDayPassed();
+  if (respond === 'yes') {
+    localStorage.streak = Number(localStorage.streak) + 1;
+    localStorage.lastUsed = new Date().toLocaleDateString();
+  } else if (respond === 'no') {
+    localStorage.setItem('streak', 0);
+  }
+};
+getStreak();
+const streak = localStorage.getItem('streak');
 export default function ActivitySummary() {
   const classes = useStyles();
   return (
@@ -91,7 +115,7 @@ export default function ActivitySummary() {
               </Grid>
               <Grid item xs={9}>
                 <Typography className={classes.numbers} color="textSecondary" gutterBottom>
-                  3
+                  {streak}
                 </Typography>
                 <Typography className={classes.text} color="textSecondary" gutterBottom>
                   days streak

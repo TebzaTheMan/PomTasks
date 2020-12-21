@@ -40,11 +40,11 @@ const isNewWeek = () => {
   const date = new Date().toLocaleDateString();
   if (localStorage.lastUsed === undefined) { // this is for first time run!
     localStorage.lastUsed = date;
+    localStorage.streak = 0;
     return false;
   } if (isThisWeek(new Date(localStorage.lastUsed))) {
     return false;
   }
-  localStorage.lastUsed = date;
   return true;
 };
 const updateWeeklyData = (dispatch) => {
