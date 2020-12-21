@@ -16,6 +16,7 @@ const useStyles = makeStyles(() => ({
   numbers: {
     fontSize: '25px',
     fontWeight: 'bold',
+    color: 'rgb(107, 107, 107)',
   },
   gridItem: {
     marginTop: 15,
@@ -25,6 +26,7 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'bold',
   },
   Icon: {
+    fontWeight: 'bold',
     color: 'rgb(117, 117, 117)',
   },
   card: {
