@@ -59,7 +59,9 @@ const getStreak = () => {
   }
 };
 getStreak();
-const streak = localStorage.getItem('streak');
+const streak = localStorage.streak === undefined
+  ? localStorage.setItem('streak', 0)
+  : localStorage.getItem('streak');
 export default function ActivitySummary() {
   const classes = useStyles();
   return (
