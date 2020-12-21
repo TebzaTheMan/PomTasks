@@ -8,7 +8,7 @@ export default TasksContext;
 
 const defaultTasks = [
   {
-    id: 1,
+    id: '1',
     task: 'Welcome to Pomodoro Timer',
     pomodorosDone: 0,
     pomodorosEstimated: 1,
