@@ -27,7 +27,7 @@ export default function FocusChart({ data, type }) {
           x="date"
           y="focusedHours"
           style={{
-            data: { fill: theme.palette.secondary.light },
+            data: { fill: theme.palette.secondary.main },
 
           }}
           barRatio={type === 'today' ? 15 : 0.9}
