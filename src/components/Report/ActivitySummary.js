@@ -9,14 +9,13 @@ import TodayIcon from '@material-ui/icons/Today';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import isYesterday from 'date-fns/isYesterday';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: '25px',
   },
   numbers: {
     fontSize: '25px',
     fontWeight: 'bold',
-    color: 'rgb(107, 107, 107)',
   },
   gridItem: {
     marginTop: 15,
@@ -27,11 +26,11 @@ const useStyles = makeStyles(() => ({
   },
   Icon: {
     fontWeight: 'bold',
-    color: 'rgb(117, 117, 117)',
+    color: theme.palette.grey.dark,
   },
   card: {
     padding: 10,
-    backgroundColor: '#F4F4F9',
+    backgroundColor: theme.palette.grey.light,
   },
 }));
 const getTotalFocusHours = () => {
