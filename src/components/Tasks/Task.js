@@ -14,13 +14,8 @@ import { TOGGLE_TASK, SELECT_TASK } from '../../constants/actions';
 import { DispatchContext } from '../../contexts/Tasks.context';
 
 const useStyles = makeStyles((theme) => ({
-  notSelected: {
+  taskCard: {
     marginBottom: 10,
-    backgroundColor: 'rgb(255,255,255)',
-  },
-  selected: {
-    marginBottom: 10,
-    backgroundColor: 'rgb(235, 235, 235)',
   },
   editForm: {
     marginBottom: 15,
@@ -76,7 +71,7 @@ export default function Task({
           pomodorosEstimated={pomodorosEstimated}
         />
       ) : (
-        <Card className={isDoing ? classes.selected : classes.notSelected}>
+        <Card className={classes.taskCard}>
           <ListItem button className={isDone ? classes.done : classes.notDone}>
             {isDoing ? (
               <Chip label="Focusing On" color="secondary" size="small" />
