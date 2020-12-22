@@ -47,7 +47,7 @@ const getFinishTime = (pomodorosEstimated) => {
 
   return time;
 };
-function InfoBar() {
+export default function InfoBar() {
   const classes = useStyles();
   const tasks = useContext(TasksContext);
   return (
@@ -82,6 +82,3 @@ function InfoBar() {
     </div>
   );
 }
-
-const MemoInfoBar = React.memo(InfoBar);
-export default MemoInfoBar;
