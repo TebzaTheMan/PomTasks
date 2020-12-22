@@ -31,6 +31,7 @@ const useStyles = makeStyles(() => ({
   },
   card: {
     padding: 10,
+    backgroundColor: '#F4F4F9',
   },
 }));
 const getTotalFocusHours = () => {
