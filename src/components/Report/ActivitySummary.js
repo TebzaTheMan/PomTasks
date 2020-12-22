@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   numbers: {
     fontSize: '25px',
     fontWeight: 'bold',
+    color: theme.palette.grey.dark,
   },
   gridItem: {
     marginTop: 15,
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Icon: {
     fontWeight: 'bold',
-    color: theme.palette.grey.dark,
+    color: theme.palette.secondary.main,
   },
   card: {
     padding: 10,
