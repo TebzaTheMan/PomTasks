@@ -38,8 +38,8 @@ function App() {
           <WeeklyDataProvider>
             <StatsProvider>
               <Header />
+              <TabPanel />
             </StatsProvider>
-            <TabPanel />
           </WeeklyDataProvider>
           <Tasks />
           <InfoBar />
