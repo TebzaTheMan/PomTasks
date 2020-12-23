@@ -1,50 +1,23 @@
-import uuid from 'uuid/v4';
 import {
-  ADD_TASK,
-  REMOVE_TASK,
-  TOGGLE_TASK,
-  EDIT_TASK,
-  SELECT_TASK,
-  INCREMENT_TASK,
+  RESET_STREAK, INCREMENT_DAYS_ACCESSED, UPDATE_LASTUSED_DATE,
+  INCREMENT_STREAK, INCREMENT_TOTAL_FOCUSHOURS,
 } from '../constants/actions';
+
+const MinuteInHours = 1 / 60;
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case ADD_TASK:
-      return [
-        ...state,
-        {
-          id: uuid(),
-          isDone: false,
-          task: action.task,
-          notes: action.notes,
-          pomodorosDone: 0,
-          pomodorosEstimated: action.pomodorosEstimated,
-        },
-      ];
-    case REMOVE_TASK:
-      return state.filter((task) => task.id !== action.id);
-    case TOGGLE_TASK:
-      return state.map((task) => (task.id === action.id
-        ? ({ ...task, isDone: !task.isDone })
-        : task));
-    case EDIT_TASK:
-      return state.map((task) => (task.id === action.id
-        ? {
-          ...task,
-          task: action.task,
-          notes: action.notes,
-          pomodorosEstimated: action.pomodorosEstimated,
-        }
-        : task));
-    case SELECT_TASK:
-      return state.map((task) => (task.id === action.id
-        ? { ...task, isDoing: true }
-        : { ...task, isDoing: false }));
-    case INCREMENT_TASK:
-      return state.map((task) => (task.isDoing
-        ? ({ ...task, pomodorosDone: task.pomodorosDone + 1 })
-        : task));
+    case RESET_STREAK:
+      return { ...state, streak: 0 };
+
+    case INCREMENT_DAYS_ACCESSED:
+      return { ...state, daysAccessed: state.daysAccessed + 1 };
+    case UPDATE_LASTUSED_DATE:
+      return { ...state, lastUsed: new Date().toLocaleDateString() };
+    case INCREMENT_STREAK:
+      return { ...state, streak: state.streak + 1 };
+    case INCREMENT_TOTAL_FOCUSHOURS:
+      return { ...state, hoursFocused: state.hoursFocused + MinuteInHours };
     default:
       return state;
   }
