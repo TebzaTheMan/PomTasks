@@ -21,6 +21,7 @@ const reducer = (state, action) => {
           notes: action.notes,
           pomodorosDone: 0,
           pomodorosEstimated: action.pomodorosEstimated,
+          isDoing: action.isDoing,
         },
       ];
     case REMOVE_TASK:
