@@ -9,6 +9,9 @@ import TodayIcon from '@material-ui/icons/Today';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import isYesterday from 'date-fns/isYesterday';
 import StatsContext, { DispatchContext } from '../../contexts/Stats.context';
+import {
+  RESET_STREAK, INCREMENT_DAYS_ACCESSED, UPDATE_LASTUSED_DATE, INCREMENT_STREAK,
+} from '../../constants/actions';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -57,11 +60,11 @@ export default function ActivitySummary() {
   const getStats = () => {
     const respond = hasOneDayPassed();
     if (respond === 'yes') {
-      dispatch({ type: 'INCREMENT_STREAK' });
-      dispatch({ type: 'UPDATE_LASTUSED_DATE' });
+      dispatch({ type: INCREMENT_STREAK });
+      dispatch({ type: UPDATE_LASTUSED_DATE });
     } else if (respond === 'no') {
-      dispatch({ type: 'INCREMENT_DAYS_ACCESSED' });
-      dispatch({ type: 'RESET_STREAK' });
+      dispatch({ type: INCREMENT_DAYS_ACCESSED });
+      dispatch({ type: RESET_STREAK });
     }
   };
   getStats();

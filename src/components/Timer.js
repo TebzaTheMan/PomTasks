@@ -4,8 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import bellsound from '../sounds/bell.mp3';
 import clicksound from '../sounds/click.mp3';
-
-import { INCREMENT_TASK, INCREMENT_FOCUSHOURS } from '../constants/actions';
+import { INCREMENT_TASK, INCREMENT_FOCUSHOURS, INCREMENT_TOTAL_FOCUSHOURS } from '../constants/actions';
 import TasksContext, { DispatchContext } from '../contexts/Tasks.context';
 import { DispatchContext as WeeklyDataContext } from '../contexts/WeeklyData.context';
 import { DispatchContext as StatsDispatch } from '../contexts/Stats.context';
@@ -87,7 +86,7 @@ export default function Timer({ initialMinutes, timerType, changeTab }) {
     }
     if (seconds === 0 && !isTimeUp && timerType === 'pomodoro' && minutes !== '24') {
       // increment focused hours of today
-      statsDispatch({ type: 'INCREMENT_TOTAL_FOCUSHOURS' });
+      statsDispatch({ type: INCREMENT_TOTAL_FOCUSHOURS });
       WeeklyDataDispatch({ type: INCREMENT_FOCUSHOURS });
     }
   };
