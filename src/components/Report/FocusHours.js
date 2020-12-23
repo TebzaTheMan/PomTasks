@@ -58,7 +58,7 @@ export default function FocusHours() {
     return true;
   };
 
-  updateWeeklyData(dispatch);
+  updateWeeklyData();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

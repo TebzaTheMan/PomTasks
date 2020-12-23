@@ -5,11 +5,12 @@ import useLocalStorageReducer from '../hooks/useLocalStorageReducer';
 const StatsContext = createContext();
 export const DispatchContext = createContext();
 export default StatsContext;
+const todayDate = new Date().toLocaleDateString();
 
 const defaultStats = {
   streak: 0,
-  lastUsed: new Date().toLocaleDateString(),
-  daysAccessed: 0,
+  lastUsed: todayDate,
+  daysAccessed: 1,
   hoursFocused: 0,
 };
 // eslint-disable-next-line react/prop-types

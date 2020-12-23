@@ -4,6 +4,7 @@ import {
 } from '../constants/actions';
 
 const MinuteInHours = 1 / 60;
+const todayDate = new Date().toLocaleDateString();
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -13,7 +14,7 @@ const reducer = (state, action) => {
     case INCREMENT_DAYS_ACCESSED:
       return { ...state, daysAccessed: state.daysAccessed + 1 };
     case UPDATE_LASTUSED_DATE:
-      return { ...state, lastUsed: new Date().toLocaleDateString() };
+      return { ...state, lastUsed: todayDate };
     case INCREMENT_STREAK:
       return { ...state, streak: state.streak + 1 };
     case INCREMENT_TOTAL_FOCUSHOURS:

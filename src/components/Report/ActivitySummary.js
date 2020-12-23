@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -60,14 +60,19 @@ export default function ActivitySummary() {
   const getStats = () => {
     const respond = hasOneDayPassed();
     if (respond === 'yes') {
-      dispatch({ type: INCREMENT_STREAK });
       dispatch({ type: UPDATE_LASTUSED_DATE });
-    } else if (respond === 'no') {
+      dispatch({ type: INCREMENT_STREAK });
+      dispatch({ type: INCREMENT_DAYS_ACCESSED });
+    } if (respond === 'no') {
+      dispatch({ type: UPDATE_LASTUSED_DATE });
       dispatch({ type: INCREMENT_DAYS_ACCESSED });
       dispatch({ type: RESET_STREAK });
     }
   };
-  getStats();
+  useEffect(() => {
+    getStats();
+  }, []);
+
   return (
     <>
       <Typography variant="h2" className={classes.heading}>
