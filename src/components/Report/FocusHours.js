@@ -9,6 +9,7 @@ import Tab from '@material-ui/core/Tab';
 import format from 'date-fns/format';
 import isThisWeek from 'date-fns/isThisWeek';
 import WeeklyDataContext, { DispatchContext } from '../../contexts/WeeklyData.context';
+import StatsContext from '../../contexts/Stats.context';
 import { NEW_WEEK } from '../../constants/actions';
 import FocusChart from './FocusChart';
 import TotalHours from './TotalHours';
@@ -36,27 +37,27 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const isNewWeek = () => {
-  const date = new Date().toLocaleDateString();
-  if (localStorage.lastUsed === undefined) { // this is for first time run!
-    localStorage.lastUsed = date;
-    return false;
-  } if (isThisWeek(new Date(localStorage.lastUsed))) {
-    return false;
-  }
-  return true;
-};
-const updateWeeklyData = (dispatch) => {
-  if (!isNewWeek()) return false;
-  dispatch({ type: NEW_WEEK });
-  return true;
-};
 export default function FocusHours() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const weeklyData = useContext(WeeklyDataContext);
   const todayData = [weeklyData.filter((data) => data.date === format(new Date(), 'MM/dd/yyyy'))];
   const dispatch = useContext(DispatchContext);
+  const stats = useContext(StatsContext);
+
+  const isNewWeek = () => {
+    if (isThisWeek(new Date(stats.lastUsed))) {
+      return false;
+    }
+    return true;
+  };
+
+  const updateWeeklyData = () => {
+    if (!isNewWeek()) return false;
+    dispatch({ type: NEW_WEEK });
+    return true;
+  };
+
   updateWeeklyData(dispatch);
   const handleChange = (event, newValue) => {
     setValue(newValue);

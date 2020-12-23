@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -8,6 +8,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import TodayIcon from '@material-ui/icons/Today';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import isYesterday from 'date-fns/isYesterday';
+import StatsContext, { DispatchContext } from '../../contexts/Stats.context';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -34,44 +35,36 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey.light,
   },
 }));
-const getTotalFocusHours = () => {
-  const totalHours = localStorage.hoursFocused === undefined
-    ? localStorage.setItem('hoursFocused', 0)
-    : localStorage.getItem('hoursFocused');
-  return Number.parseFloat(totalHours).toFixed(1);
-};
-const hasOneDayPassed = () => {
-  let respond;
-  const todayDate = new Date().toLocaleDateString();
-  if (isYesterday(new Date(localStorage.lastUsed))) {
-    respond = 'yes';
-  } else if (localStorage.lastUsed === todayDate) {
-    respond = 'today';
-  } else {
-    respond = 'no';
-  }
-  return respond;
-};
-const getStats = () => {
-  const respond = hasOneDayPassed();
-  if (respond === 'yes') {
-    localStorage.streak = Number(localStorage.streak) + 1;
-    localStorage.daysAccessed = Number(localStorage.daysAccessed) + 1;
-    localStorage.lastUsed = new Date().toLocaleDateString();
-  } else if (respond === 'no') {
-    localStorage.setItem('streak', 0);
-  }
-};
-const daysAccessed = localStorage.daysAccessed === undefined
-  ? localStorage.daysAccessed = 1
-  : localStorage.getItem('daysAccessed');
 
-getStats();
-const streak = localStorage.streak === undefined
-  ? localStorage.setItem('streak', 0)
-  : localStorage.getItem('streak');
 export default function ActivitySummary() {
   const classes = useStyles();
+  const stats = useContext(StatsContext);
+  const dispatch = useContext(DispatchContext);
+
+  const hasOneDayPassed = () => {
+    let respond;
+    const todayDate = new Date().toLocaleDateString();
+    if (isYesterday(new Date(stats.lastUsed))) {
+      respond = 'yes';
+    } else if (stats.lastUsed === todayDate) {
+      respond = 'today';
+    } else {
+      respond = 'no';
+    }
+    return respond;
+  };
+
+  const getStats = () => {
+    const respond = hasOneDayPassed();
+    if (respond === 'yes') {
+      dispatch({ type: 'INCREMENT_STREAK' });
+      dispatch({ type: 'UPDATE_LASTUSED_DATE' });
+    } else if (respond === 'no') {
+      dispatch({ type: 'INCREMENT_DAYS_ACCESSED' });
+      dispatch({ type: 'RESET_STREAK' });
+    }
+  };
+  getStats();
   return (
     <>
       <Typography variant="h2" className={classes.heading}>
@@ -88,7 +81,7 @@ export default function ActivitySummary() {
               </Grid>
               <Grid item xs={9}>
                 <Typography className={classes.numbers} color="textSecondary" gutterBottom>
-                  {getTotalFocusHours()}
+                  {Number.parseFloat(stats.totalHours).toFixed(1)}
                 </Typography>
                 <Typography className={classes.text} color="textSecondary" gutterBottom>
                   hours focused
@@ -106,7 +99,7 @@ export default function ActivitySummary() {
               </Grid>
               <Grid item xs={9}>
                 <Typography className={classes.numbers} color="textSecondary" gutterBottom>
-                  {daysAccessed}
+                  {stats.daysAccessed}
                 </Typography>
                 <Typography className={classes.text} color="textSecondary" gutterBottom>
                   days Accessed
@@ -125,7 +118,7 @@ export default function ActivitySummary() {
               </Grid>
               <Grid item xs={9}>
                 <Typography className={classes.numbers} color="textSecondary" gutterBottom>
-                  {streak}
+                  {stats.daysAccessed}
                 </Typography>
                 <Typography className={classes.text} color="textSecondary" gutterBottom>
                   days streak

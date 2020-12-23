@@ -14,13 +14,13 @@ const defaultStats = {
 };
 // eslint-disable-next-line react/prop-types
 export function StatsProvider({ children }) {
-  const [Stats, dispatch] = useLocalStorageReducer(
-    'Stats',
+  const [stats, dispatch] = useLocalStorageReducer(
+    'stats',
     StatsReducer,
     defaultStats,
   );
   return (
-    <StatsContext.Provider value={Stats}>
+    <StatsContext.Provider value={stats}>
       <DispatchContext.Provider value={dispatch}>
         {children}
       </DispatchContext.Provider>

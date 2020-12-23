@@ -6,6 +6,7 @@ import TabPanel from './components/TabPanel';
 import Tasks from './components/Tasks/Tasks';
 import { TasksProvider } from './contexts/Tasks.context';
 import { WeeklyDataProvider } from './contexts/WeeklyData.context';
+import { StatsProvider } from './contexts/Stats.context';
 import InfoBar from './components/Tasks/InfoBar';
 
 const theme = createMuiTheme({
@@ -35,7 +36,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <TasksProvider>
           <WeeklyDataProvider>
-            <Header />
+            <StatsProvider>
+              <Header />
+            </StatsProvider>
             <TabPanel />
           </WeeklyDataProvider>
           <Tasks />

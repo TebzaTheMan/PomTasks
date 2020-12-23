@@ -8,6 +8,7 @@ import clicksound from '../sounds/click.mp3';
 import { INCREMENT_TASK, INCREMENT_FOCUSHOURS } from '../constants/actions';
 import TasksContext, { DispatchContext } from '../contexts/Tasks.context';
 import { DispatchContext as WeeklyDataContext } from '../contexts/WeeklyData.context';
+import { DispatchContext as StatsDispatch } from '../contexts/Stats.context';
 
 let pomsDone = 0;
 const audioBellsound = new Audio(bellsound);
@@ -20,6 +21,7 @@ export default function Timer({ initialMinutes, timerType, changeTab }) {
   const tasks = useContext(TasksContext);
   const dispatch = useContext(DispatchContext);
   const WeeklyDataDispatch = useContext(WeeklyDataContext);
+  const statsDispatch = useContext(StatsDispatch);
   const notify = (message) => {
     Notification.requestPermission();
     const notification = new Notification(message);
@@ -85,6 +87,7 @@ export default function Timer({ initialMinutes, timerType, changeTab }) {
     }
     if (seconds === 0 && !isTimeUp && timerType === 'pomodoro' && minutes !== '24') {
       // increment focused hours of today
+      statsDispatch({ type: 'INCREMENT_TOTAL_FOCUSHOURS' });
       WeeklyDataDispatch({ type: INCREMENT_FOCUSHOURS });
     }
   };
