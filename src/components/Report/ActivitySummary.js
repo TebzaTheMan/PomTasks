@@ -84,7 +84,7 @@ export default function ActivitySummary() {
               </Grid>
               <Grid item xs={9}>
                 <Typography className={classes.numbers} color="textSecondary" gutterBottom>
-                  {Number.parseFloat(stats.totalHours).toFixed(1)}
+                  {Number.parseFloat(stats.hoursFocused).toFixed(1)}
                 </Typography>
                 <Typography className={classes.text} color="textSecondary" gutterBottom>
                   hours focused
