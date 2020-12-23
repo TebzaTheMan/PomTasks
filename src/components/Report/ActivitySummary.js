@@ -121,7 +121,7 @@ export default function ActivitySummary() {
               </Grid>
               <Grid item xs={9}>
                 <Typography className={classes.numbers} color="textSecondary" gutterBottom>
-                  {stats.daysAccessed}
+                  {stats.streak}
                 </Typography>
                 <Typography className={classes.text} color="textSecondary" gutterBottom>
                   days streak
