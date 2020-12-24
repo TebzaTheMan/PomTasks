@@ -8,6 +8,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Report from './Report/Report';
+import { signInWithGoogle } from '../firebase';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -63,7 +64,7 @@ export default function Header() {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Login with Google</MenuItem>
+              <MenuItem onClick={signInWithGoogle}>Login with Google</MenuItem>
             </Menu>
           </div>
         </Toolbar>
