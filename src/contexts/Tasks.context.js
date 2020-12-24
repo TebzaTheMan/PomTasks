@@ -1,6 +1,8 @@
-import React, { createContext } from 'react';
+import React, { createContext, useContext } from 'react';
 import tasksReducer from '../reducers/Tasks.reducer';
+import useFireStoreReducer from '../hooks/useFireStoreReducer';
 import useLocalStorageReducer from '../hooks/useLocalStorageReducer';
+import { UserContext } from './User.context';
 
 const TasksContext = createContext();
 export const DispatchContext = createContext();
@@ -17,13 +19,23 @@ const defaultTasks = [
     isDoing: false,
   },
 ];
+
 // eslint-disable-next-line react/prop-types
 export function TasksProvider({ children }) {
-  const [tasks, dispatch] = useLocalStorageReducer(
-    'tasks',
-    tasksReducer,
-    defaultTasks,
-  );
+  const user = useContext(UserContext);
+  const [tasks, dispatch] = user === null
+    ? useLocalStorageReducer(
+      'tasks',
+      tasksReducer,
+      defaultTasks,
+    )
+    : useFireStoreReducer(
+      'tasks',
+      tasksReducer,
+      defaultTasks,
+      user.uid,
+    );
+
   return (
     <TasksContext.Provider value={tasks}>
       <DispatchContext.Provider value={dispatch}>
