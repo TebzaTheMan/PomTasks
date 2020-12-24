@@ -16,12 +16,16 @@ export default function UserAccount() {
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const signIn = () => {
+    signInWithGoogle();
+    handleClose();
+  };
   const signOut = () => {
     auth.signOut();
+    handleClose();
   };
   return (
     <div>
@@ -52,7 +56,7 @@ export default function UserAccount() {
       >
         {user
           ? <MenuItem onClick={signOut}>logout</MenuItem>
-          : <MenuItem onClick={signInWithGoogle}>Login with Google</MenuItem> }
+          : <MenuItem onClick={signIn}>Login with Google</MenuItem> }
       </Menu>
     </div>
   );
