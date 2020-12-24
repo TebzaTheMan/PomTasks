@@ -13,7 +13,7 @@ export default function UserProvider({ children }) {
   }, []);
 
   return (
-    <UserContext.Provider user={user}>
+    <UserContext.Provider value={user}>
       {children}
     </UserContext.Provider>
   );
