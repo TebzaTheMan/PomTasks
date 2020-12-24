@@ -8,6 +8,7 @@ import { TasksProvider } from './contexts/Tasks.context';
 import { WeeklyDataProvider } from './contexts/WeeklyData.context';
 import { StatsProvider } from './contexts/Stats.context';
 import InfoBar from './components/Tasks/InfoBar';
+import UserProvider from './contexts/User.context';
 
 const theme = createMuiTheme({
   palette: {
@@ -34,17 +35,20 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <TasksProvider>
-          <WeeklyDataProvider>
-            <StatsProvider>
-              <Header />
-              <TabPanel />
-            </StatsProvider>
-          </WeeklyDataProvider>
-          <Tasks />
-          <InfoBar />
-        </TasksProvider>
+        <UserProvider>
+          <TasksProvider>
+            <WeeklyDataProvider>
+              <StatsProvider>
+                <Header />
+                <TabPanel />
+              </StatsProvider>
+            </WeeklyDataProvider>
+            <Tasks />
+            <InfoBar />
+          </TasksProvider>
+        </UserProvider>
       </ThemeProvider>
+
     </div>
   );
 }
