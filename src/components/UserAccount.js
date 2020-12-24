@@ -34,44 +34,26 @@ export default function UserAccount() {
       >
         {user ? <Avatar alt={displayName} src={photoURL} /> : <AccountCircle />}
       </IconButton>
-      { user ? (
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={open}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={signOut}>logout</MenuItem>
-        </Menu>
-      ) : (
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={open}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={signInWithGoogle}>Login with Google</MenuItem>
-        </Menu>
-      )}
 
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={open}
+        onClose={handleClose}
+      >
+        {user
+          ? <MenuItem onClick={signOut}>logout</MenuItem>
+          : <MenuItem onClick={signInWithGoogle}>Login with Google</MenuItem> }
+      </Menu>
     </div>
   );
 }
