@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import format from 'date-fns/format';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -44,33 +45,29 @@ export default function ActivitySummary() {
   const stats = useContext(StatsContext);
   const dispatch = useContext(DispatchContext);
 
-  const hasOneDayPassed = () => {
-    let respond;
-    const todayDate = new Date().toLocaleDateString();
-    if (isYesterday(new Date(stats.lastUsed))) {
-      respond = 'yes';
-    } else if (stats.lastUsed === todayDate) {
-      respond = 'today';
-    } else {
-      respond = 'no';
+  const oneDayPassed = () => {
+    dispatch({ type: UPDATE_LASTUSED_DATE });
+    dispatch({ type: INCREMENT_STREAK });
+    dispatch({ type: INCREMENT_DAYS_ACCESSED });
+  };
+  const someDaysPassed = () => {
+    dispatch({ type: UPDATE_LASTUSED_DATE });
+    dispatch({ type: INCREMENT_DAYS_ACCESSED });
+    dispatch({ type: RESET_STREAK });
+  };
+  const updateStats = () => {
+    const todayDate = format(new Date(), 'MM/dd/yyyy');
+
+    if (stats.lastUsed !== todayDate) {
+      if (isYesterday(new Date(stats.lastUsed))) {
+        oneDayPassed();
+      }
+      someDaysPassed();
     }
-    return respond;
   };
 
-  const getStats = () => {
-    const respond = hasOneDayPassed();
-    if (respond === 'yes') {
-      dispatch({ type: UPDATE_LASTUSED_DATE });
-      dispatch({ type: INCREMENT_STREAK });
-      dispatch({ type: INCREMENT_DAYS_ACCESSED });
-    } if (respond === 'no') {
-      dispatch({ type: UPDATE_LASTUSED_DATE });
-      dispatch({ type: INCREMENT_DAYS_ACCESSED });
-      dispatch({ type: RESET_STREAK });
-    }
-  };
   useEffect(() => {
-    getStats();
+    updateStats();
   }, []);
 
   return (
