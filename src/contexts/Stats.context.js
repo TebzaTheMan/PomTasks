@@ -9,7 +9,7 @@ export default StatsContext;
 const todayDate = format(new Date(), 'MM/dd/yyyy');
 
 const defaultStats = {
-  streak: 0,
+  streak: 1,
   lastUsed: todayDate,
   daysAccessed: 1,
   hoursFocused: 0,
