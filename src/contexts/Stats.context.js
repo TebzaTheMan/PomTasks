@@ -1,11 +1,12 @@
 import React, { createContext } from 'react';
+import format from 'date-fns/format';
 import StatsReducer from '../reducers/Stats.reducer';
 import useLocalStorageReducer from '../hooks/useLocalStorageReducer';
 
 const StatsContext = createContext();
 export const DispatchContext = createContext();
 export default StatsContext;
-const todayDate = new Date().toLocaleDateString();
+const todayDate = format(new Date(), 'MM/dd/yyyy');
 
 const defaultStats = {
   streak: 0,

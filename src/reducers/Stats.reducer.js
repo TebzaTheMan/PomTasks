@@ -1,10 +1,11 @@
+import format from 'date-fns/format';
 import {
   RESET_STREAK, INCREMENT_DAYS_ACCESSED, UPDATE_LASTUSED_DATE,
   INCREMENT_STREAK, INCREMENT_TOTAL_FOCUSHOURS,
 } from '../constants/actions';
 
 const MinuteInHours = 1 / 60;
-const todayDate = new Date().toLocaleDateString();
+const todayDate = format(new Date(), 'MM/dd/yyyy');
 
 const reducer = (state, action) => {
   switch (action.type) {
