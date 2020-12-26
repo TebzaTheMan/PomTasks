@@ -1,6 +1,6 @@
 {
-  "short_name": "Pomodoro Timer",
-  "name": "Pomodoro Timer",
+  "short_name": "PomTasks",
+  "name": "PomTasks",
   "icons": [
     {
       "src": "favicon.ico",

@@ -22,7 +22,7 @@ export default function Header() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title} color="inherit">
-            Pomodoro Timer
+            PomTasks
           </Typography>
           <Report />
         </Toolbar>

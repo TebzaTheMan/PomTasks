@@ -138,7 +138,7 @@ export default function Timer({ initialMinutes, timerType, changeTab }) {
     } else if (timerType === 'longbreak') {
       document.title = `${minutes}:${secs} - time for long break!`;
     } else {
-      document.title = 'Pomodoro Timer';
+      document.title = 'PomTasks';
     }
   };
 
