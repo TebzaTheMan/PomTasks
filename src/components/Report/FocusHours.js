@@ -7,10 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import format from 'date-fns/format';
-import isThisWeek from 'date-fns/isThisWeek';
-import WeeklyDataContext, { DispatchContext } from '../../contexts/WeeklyData.context';
-import StatsContext from '../../contexts/Stats.context';
-import { NEW_WEEK } from '../../constants/actions';
+import WeeklyDataContext from '../../contexts/WeeklyData.context';
 import FocusChart from './FocusChart';
 import TotalHours from './TotalHours';
 
@@ -42,23 +39,7 @@ export default function FocusHours() {
   const [value, setValue] = React.useState(0);
   const weeklyData = useContext(WeeklyDataContext);
   const todayData = [weeklyData.filter((data) => data.date === format(new Date(), 'MM/dd/yyyy'))];
-  const dispatch = useContext(DispatchContext);
-  const stats = useContext(StatsContext);
 
-  const isNewWeek = () => {
-    if (isThisWeek(new Date(stats.lastUsed))) {
-      return false;
-    }
-    return true;
-  };
-
-  const updateWeeklyData = () => {
-    if (!isNewWeek()) return false;
-    dispatch({ type: NEW_WEEK });
-    return true;
-  };
-
-  updateWeeklyData();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

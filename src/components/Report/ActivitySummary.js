@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import format from 'date-fns/format';
+/* eslint-disable no-console */
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -8,11 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import TodayIcon from '@material-ui/icons/Today';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
-import isYesterday from 'date-fns/isYesterday';
-import StatsContext, { DispatchContext } from '../../contexts/Stats.context';
-import {
-  RESET_STREAK, INCREMENT_DAYS_ACCESSED, UPDATE_LASTUSED_DATE, INCREMENT_STREAK,
-} from '../../constants/actions';
+import StatsContext from '../../contexts/Stats.context';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -43,32 +39,6 @@ const useStyles = makeStyles((theme) => ({
 export default function ActivitySummary() {
   const classes = useStyles();
   const stats = useContext(StatsContext);
-  const dispatch = useContext(DispatchContext);
-
-  const oneDayPassed = () => {
-    dispatch({ type: UPDATE_LASTUSED_DATE });
-    dispatch({ type: INCREMENT_STREAK });
-    dispatch({ type: INCREMENT_DAYS_ACCESSED });
-  };
-  const someDaysPassed = () => {
-    dispatch({ type: UPDATE_LASTUSED_DATE });
-    dispatch({ type: INCREMENT_DAYS_ACCESSED });
-    dispatch({ type: RESET_STREAK });
-  };
-  const updateStats = () => {
-    const todayDate = format(new Date(), 'MM/dd/yyyy');
-
-    if (stats.lastUsed !== todayDate) {
-      if (isYesterday(new Date(stats.lastUsed))) {
-        oneDayPassed();
-      }
-      someDaysPassed();
-    }
-  };
-
-  useEffect(() => {
-    updateStats();
-  }, []);
 
   return (
     <>
