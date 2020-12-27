@@ -10,7 +10,7 @@ const todayDate = format(new Date(), 'MM/dd/yyyy');
 const reducer = (state, action) => {
   switch (action.type) {
     case RESET_STREAK:
-      return { ...state, streak: 0 };
+      return { ...state, streak: 1 };
 
     case INCREMENT_DAYS_ACCESSED:
       return { ...state, daysAccessed: state.daysAccessed + 1 };
