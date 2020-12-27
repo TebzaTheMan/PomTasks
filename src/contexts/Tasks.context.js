@@ -9,12 +9,12 @@ export default TasksContext;
 const defaultTasks = [
   {
     id: '1',
-    task: 'Welcome to Pomodoro Timer',
+    task: 'Welcome to PomTasks',
     pomodorosDone: 0,
     pomodorosEstimated: 1,
     notes: 'Use this app to boost your productivity',
     isDone: false,
-    isDoing: false,
+    isDoing: true,
   },
 ];
 // eslint-disable-next-line react/prop-types
