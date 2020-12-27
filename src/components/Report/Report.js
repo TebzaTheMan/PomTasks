@@ -65,17 +65,13 @@ export default function Report() {
   };
   const updateData = () => {
     const todayDate = format(new Date(), 'MM/dd/yyyy');
-    console.log('updating data!');
     if (stats.lastUsed !== todayDate) {
       if (isYesterday(new Date(stats.lastUsed))) {
         oneDayPassed();
-        console.log('last used was yesterday!');
       } else {
         someDaysPassed();
-        console.log('Somedays have passed!');
       } if (!isThisWeek(new Date(stats.lastUsed))) {
         updateWeeklyData();
-        console.log('Its a new week!');
       }
     }
   };
