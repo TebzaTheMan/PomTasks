@@ -44,7 +44,6 @@ export default function Tasks() {
       result.source.index,
       result.destination.index,
     );
-    // call update state dispatch
     dispatch({ type: REORDER_TASKS, tasks: reorderedTasks });
   };
   return (
