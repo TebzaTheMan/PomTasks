@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import EmailIcon from '@material-ui/icons/Email';
+import TwitterIcon from '@material-ui/icons/Twitter';
 import IconButton from '@material-ui/core/IconButton';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import Report from './Report/Report';
@@ -33,8 +33,8 @@ export default function Header() {
             aria-controls="close-modal"
             edge="end"
             color="inherit"
-            // eslint-disable-next-line no-restricted-globals
-            onClick={() => { location.href = 'https://github.com/tebzatheman/pomtasks'; }}
+            target="_blank"
+            href="https://github.com/tebzatheman/pomtasks"
           >
             <GitHubIcon />
           </IconButton>
@@ -43,10 +43,10 @@ export default function Header() {
             aria-controls="close-modal"
             color="inherit"
             edge="end"
-            // eslint-disable-next-line no-restricted-globals
-            onClick={() => { location.href = 'mailto:tebzax2@gmail.com?subject="Feedback about PomTasks"&body="write some message"'; }}
+            target="_blank"
+            href="https://twitter.com/messages/compose?recipient_id=4775018429&text=PomTasks%20Feedback:"
           >
-            <EmailIcon />
+            <TwitterIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
