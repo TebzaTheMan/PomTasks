@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGa from 'react-ga';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -28,26 +29,35 @@ export default function Header() {
             PomTasks
           </Typography>
           <Report />
-          <IconButton
-            aria-label="close report-modal"
-            aria-controls="close-modal"
-            edge="end"
-            color="inherit"
+          <ReactGa.OutboundLink
+            eventLabel="Github"
+            to="https://github.com/tebzatheman/pomtasks"
             target="_blank"
-            href="https://github.com/tebzatheman/pomtasks"
           >
-            <GitHubIcon />
-          </IconButton>
-          <IconButton
-            aria-label="close report-modal"
-            aria-controls="close-modal"
-            color="inherit"
-            edge="end"
+            <IconButton
+              aria-label="close report-modal"
+              aria-controls="close-modal"
+              edge="end"
+              color="inherit"
+            >
+              <GitHubIcon />
+            </IconButton>
+          </ReactGa.OutboundLink>
+          <ReactGa.OutboundLink
+            eventLabel="Twitter Feedback DM"
+            to="https://twitter.com/messages/compose?recipient_id=4775018429&text=PomTasks%20Feedback:"
             target="_blank"
-            href="https://twitter.com/messages/compose?recipient_id=4775018429&text=PomTasks%20Feedback:"
           >
-            <TwitterIcon />
-          </IconButton>
+            <IconButton
+              aria-label="close report-modal"
+              aria-controls="close-modal"
+              edge="end"
+              color="inherit"
+            >
+              <TwitterIcon />
+            </IconButton>
+          </ReactGa.OutboundLink>
+
         </Toolbar>
       </AppBar>
     </div>

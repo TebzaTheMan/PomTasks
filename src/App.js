@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import './App.css';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Header from './components/header';
@@ -8,6 +9,9 @@ import { TasksProvider } from './contexts/Tasks.context';
 import { WeeklyDataProvider } from './contexts/WeeklyData.context';
 import { StatsProvider } from './contexts/Stats.context';
 import InfoBar from './components/Tasks/InfoBar';
+
+ReactGA.initialize('UA-116096399-6', { debug: true });
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 const theme = createMuiTheme({
   palette: {
