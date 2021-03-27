@@ -35,8 +35,7 @@ export default function Header() {
             target="_blank"
           >
             <IconButton
-              aria-label="close report-modal"
-              aria-controls="close-modal"
+              aria-label="github"
               edge="end"
               color="inherit"
             >
@@ -49,8 +48,7 @@ export default function Header() {
             target="_blank"
           >
             <IconButton
-              aria-label="close report-modal"
-              aria-controls="close-modal"
+              aria-label="twitter"
               edge="end"
               color="inherit"
             >
