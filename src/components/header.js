@@ -13,6 +13,9 @@ const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
+  icon: {
+    color: '#fff',
+  },
   title: {
     flexGrow: 1,
   },
@@ -33,6 +36,7 @@ export default function Header() {
             eventLabel="Github"
             to="https://github.com/tebzatheman/pomtasks"
             target="_blank"
+            className={classes.icon}
           >
             <IconButton
               aria-label="github"
@@ -46,6 +50,7 @@ export default function Header() {
             eventLabel="Twitter Feedback DM"
             to="https://twitter.com/messages/compose?recipient_id=4775018429&text=PomTasks%20Feedback:"
             target="_blank"
+            className={classes.icon}
           >
             <IconButton
               aria-label="twitter"
