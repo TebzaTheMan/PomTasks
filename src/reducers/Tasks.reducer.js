@@ -1,4 +1,4 @@
-import uuid from 'uuid/v4';
+import {v4 as uuidv4 } from 'uuid';
 import {
   ADD_TASK,
   REMOVE_TASK,
@@ -15,7 +15,7 @@ const reducer = (state, action) => {
       return [
         ...state,
         {
-          id: uuid(),
+          id: uuidv4(),
           isDone: false,
           task: action.task,
           notes: action.notes,
